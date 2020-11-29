@@ -14,5 +14,17 @@ public class signUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
+        Button gotoProfile = (Button)findViewById(R.id.gotoProfile);
+        gotoProfile.setOnClickListener(new View.OnClickListener() {
+
+
+
+            @Override
+            public void onClick(View v) {
+                Intent gotoProfileIntent = new Intent(getApplicationContext(), profile.class);
+                startActivity(gotoProfileIntent);
+            }
+        });
+
     }
 }
