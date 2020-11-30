@@ -1,7 +1,6 @@
 package esprit.tn.farmily;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Consumer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.Exceptions;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -67,15 +67,14 @@ public class login extends AppCompatActivity {
     }
     private void loginUser(String username, String password){
 
-        if (TextUtils.isEmpty(username)){
+       if (TextUtils.isEmpty(username)){
             Toast.makeText(this , "username cannot be empty",Toast.LENGTH_SHORT).show();}
         if (TextUtils.isEmpty(password)){
             Toast.makeText(this , "password cannot be empty",Toast.LENGTH_SHORT).show();}
-        composite.add(retrofitInterface.loginUser(username,password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>(){
-
+        composite.add(retrofitInterface.loginUser(username,password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
-            public  void accept(String response)throws IOException{
-                Toast.makeText(login.this, ""+response,Toast.LENGTH_SHORT).show();
+            public void accept(String s) throws Exception {
+                System.out.println("###############################################################################################");
             }
         }));
     }
