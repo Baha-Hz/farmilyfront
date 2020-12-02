@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile"></activity>
+        <activity android:name=".Profile.profile"></activity>
         <activity android:name=".feed" />
         <activity android:name=".signUp" />
         <activity android:name=".getStarted" />
