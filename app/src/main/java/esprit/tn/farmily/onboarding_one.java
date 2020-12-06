@@ -13,12 +13,18 @@ public class onboarding_one extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onboarding_one);
+
         Button start = (Button)findViewById(R.id.button1_2);
         start.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 Intent startIntent = new Intent(getApplicationContext(),onboarding_two.class);
                 startActivity(startIntent);
+                overridePendingTransition(0,0);
+                startIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
         Button next = (Button)findViewById(R.id.btnext1);
@@ -27,6 +33,9 @@ public class onboarding_one extends AppCompatActivity {
             public void onClick(View v) {
                 Intent next1 = new Intent(getApplicationContext(),onboarding_two.class);
                 startActivity(next1);
+                overridePendingTransition(0,0);
+                next1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
     }

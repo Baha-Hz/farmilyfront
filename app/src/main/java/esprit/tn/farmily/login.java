@@ -61,6 +61,9 @@ public class login extends AppCompatActivity {
                 loginUser(username.getEditText().getText().toString(), password.getEditText().getText().toString());
                 Intent gotoFeedIntent = new Intent(getApplicationContext(), feed.class);
                 startActivity(gotoFeedIntent);
+                overridePendingTransition(0,0);
+                gotoFeedIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
 

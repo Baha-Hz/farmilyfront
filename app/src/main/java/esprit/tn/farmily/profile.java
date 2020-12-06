@@ -1,12 +1,19 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import esprit.tn.farmily.Profile.fields_fragment;
+import esprit.tn.farmily.Profile.info_fragment;
+import esprit.tn.farmily.Profile.photos_fragment;
 
 import esprit.tn.farmily.R;
 
@@ -16,6 +23,46 @@ public class profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        Button home = (Button) findViewById(R.id.home_profile);
+        home.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent home = new Intent(getApplicationContext(), feed.class);
+                startActivity(home);
+                overridePendingTransition(0, 0);
+                home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+            }
+        });
+        Button message = (Button) findViewById(R.id.message_profile);
+        message.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent message= new Intent(getApplicationContext(), messages.class);
+                startActivity(message);
+                overridePendingTransition(0, 0);
+                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+            }
+        });
+        Button notif = (Button) findViewById(R.id.notif_profile);
+        notif.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent notif= new Intent(getApplicationContext(), notification.class);
+                startActivity(notif);
+                overridePendingTransition(0, 0);
+                notif.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+            }
+        });
 
         BottomNavigationView bottomNav = findViewById(R.id.profil_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -49,6 +96,11 @@ public class profile extends AppCompatActivity {
 
 
             };
+
+
+
+
+
+
+
 }
-
-

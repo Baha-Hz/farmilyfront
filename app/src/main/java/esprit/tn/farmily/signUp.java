@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import esprit.tn.farmily.Profile.profile;
-
 public class signUp extends AppCompatActivity {
 
     @Override
@@ -25,6 +23,9 @@ public class signUp extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotoProfileIntent = new Intent(getApplicationContext(), profile.class);
                 startActivity(gotoProfileIntent);
+                overridePendingTransition(0,0);
+                gotoProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
 

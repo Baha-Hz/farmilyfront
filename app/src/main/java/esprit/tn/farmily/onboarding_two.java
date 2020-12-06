@@ -19,6 +19,9 @@ public class onboarding_two extends AppCompatActivity {
             public void onClick(View v) {
                 Intent startIntent1 = new Intent(getApplicationContext(),onboarding_three.class);
                 startActivity(startIntent1);
+                overridePendingTransition(0,0);
+                startIntent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
         Button start1 = (Button)findViewById(R.id.button2_1);
@@ -27,6 +30,9 @@ public class onboarding_two extends AppCompatActivity {
             public void onClick(View v) {
                 Intent startIntent2 = new Intent(getApplicationContext(),onboarding_one.class);
                 startActivity(startIntent2);
+                overridePendingTransition(0,0);
+                startIntent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
         Button next = (Button)findViewById(R.id.butnext2);
@@ -35,6 +41,9 @@ public class onboarding_two extends AppCompatActivity {
             public void onClick(View v) {
                 Intent next = new Intent(getApplicationContext(),onboarding_three.class);
                 startActivity(next);
+                overridePendingTransition(0,0);
+                next.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
             }
         });
     }

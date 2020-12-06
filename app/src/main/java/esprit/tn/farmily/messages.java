@@ -7,37 +7,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class feed extends AppCompatActivity {
+public class messages extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.feed);
-
-        Button profile = (Button) findViewById(R.id.profil_feed);
+        setContentView(R.layout.messages);
+        Button profile = (Button) findViewById(R.id.profil_message);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proint = new Intent(getApplicationContext(),profile.class);
-                startActivity(proint);
+                Intent profile = new Intent(getApplicationContext(),profile.class);
+                startActivity(profile);
                 overridePendingTransition(0,0);
-                proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                profile.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();
 
             }
         });
-        Button message = (Button) findViewById(R.id.message_feed);
-        message.setOnClickListener(new View.OnClickListener() {
+        Button home = (Button) findViewById(R.id.home_message);
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent message = new Intent(getApplicationContext(),messages.class);
-                startActivity(message);
+                Intent home = new Intent(getApplicationContext(),feed.class);
+                startActivity(home);
                 overridePendingTransition(0,0);
-                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();
 
             }
         });
-        Button notif = (Button) findViewById(R.id.notif_feed);
+        Button notif = (Button) findViewById(R.id.notif_message);
         notif.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -50,7 +50,5 @@ public class feed extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }
-

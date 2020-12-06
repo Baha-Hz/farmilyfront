@@ -27,14 +27,20 @@ public class onboarding_three extends AppCompatActivity {
             public void onClick(View v) {
                 Intent startIntent2 = new Intent(getApplicationContext(),onboarding_one.class);
                 startActivity(startIntent2);
+                overridePendingTransition(0,0);
+                startIntent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+               
             }
         });
-        Button btnstart = (Button)findViewById(R.id.btnstart);
-        btnstart.setOnClickListener(new View.OnClickListener() {
+        Button start = (Button)findViewById(R.id.btnstart);
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent welcome = new Intent(getApplicationContext(),getStarted.class);
                 startActivity(welcome);
+                overridePendingTransition(0,0);
+                welcome.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                
             }
         });
 
