@@ -24,7 +24,7 @@ public class getStarted extends AppCompatActivity {
                 finish();
             }
         });
-        Button login = (Button)findViewById(R.id.toLoginButton);
+        Button login = (Button)findViewById(R.id.toProfile);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

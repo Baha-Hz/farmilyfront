@@ -82,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
 
         <Button
-            android:id="@+id/toLoginButton"
+            android:id="@+id/toProfile"
             android:layout_width="90dp"
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
@@ -104,7 +104,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toLoginButton"
+            app:layout_constraintTop_toBottomOf="@+id/toProfile"
             tools:targetApi="jelly_bean" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
