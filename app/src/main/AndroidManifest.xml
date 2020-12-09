@@ -13,10 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".notification"></activity>
-        <activity android:name=".messages" />
+        <activity android:name=".feed.Comments"></activity>
+        <activity android:name=".notification" />
+        <activity android:name=".messages.messages" />
         <activity android:name=".profile" />
-        <activity android:name=".feed" />
+        <activity android:name=".feed.feed" />
         <activity android:name=".signUp" />
         <activity android:name=".getStarted" />
         <activity android:name=".login" />

@@ -15,7 +15,8 @@ import esprit.tn.farmily.Profile.fields_fragment;
 import esprit.tn.farmily.Profile.info_fragment;
 import esprit.tn.farmily.Profile.photos_fragment;
 
-import esprit.tn.farmily.R;
+import esprit.tn.farmily.feed.feed;
+import esprit.tn.farmily.messages.messages;
 
 public class profile extends AppCompatActivity {
 

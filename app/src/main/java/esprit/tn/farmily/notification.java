@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import esprit.tn.farmily.feed.feed;
+import esprit.tn.farmily.messages.messages;
+
 public class notification extends AppCompatActivity {
 
     @Override
@@ -29,7 +32,7 @@ public class notification extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(getApplicationContext(),feed.class);
+                Intent home = new Intent(getApplicationContext(), feed.class);
                 startActivity(home);
                 overridePendingTransition(0,0);
                 home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

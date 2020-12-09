@@ -10,5 +10,6 @@
     <string name="notifications">Notifications</string>
     <string name="profile">Profile</string>
     <string name="zouhaier_tounsi">Zouhaier Tounsi</string>
+    <string name="question_feed">Question Feed</string>
 
 </resources>
