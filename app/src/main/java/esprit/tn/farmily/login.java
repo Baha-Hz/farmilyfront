@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.AutofillService;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 
 public class login extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class login extends AppCompatActivity {
         checkUser = findViewById(R.id.toProfile);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        try {
+       /* try {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://192.168.1.4:3000/api/user/")
@@ -45,7 +47,7 @@ public class login extends AppCompatActivity {
                     .build();
             apiInterface = retrofit.create(ApiInterface.class);
             User user = new User(username.getText().toString(), password.getText().toString());
-            Call<User> call = apiInterface.LoginUser(user);
+            Call<User> call = apiInterface.LoginUser(username,password);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -64,7 +66,7 @@ public class login extends AppCompatActivity {
 
                     }
                     Toast.makeText(getApplicationContext(), toString(), Toast.LENGTH_LONG).show();
-                }
+
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
@@ -76,9 +78,9 @@ public class login extends AppCompatActivity {
 
         } catch (Exception e) {
 
-        }
+        }*/
 
-    }/*
+    }
 
 }
 
