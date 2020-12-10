@@ -44,7 +44,7 @@ public class signUp extends AppCompatActivity {
                 try {
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.168.1.4:3000/api/user/")
+                            .baseUrl("http://192.168.1.3:3000/api/user/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     apiInterface = retrofit.create(ApiInterface.class);

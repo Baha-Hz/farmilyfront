@@ -3,8 +3,10 @@ package esprit.tn.farmily;
 import esprit.tn.farmily.entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -24,7 +26,7 @@ public interface ApiInterface {
             "Content-type: application/json"
 
     })
-    @POST(API_ROUTE_Login)
-    Call<User> LoginUser(@Body User user);
+    @GET(API_ROUTE_Login)
+    Call<User> LoginUser(@Query("username")String username,@Query("password")String password);
 
 }

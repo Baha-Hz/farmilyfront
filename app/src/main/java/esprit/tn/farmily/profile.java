@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import esprit.tn.farmily.Profile.EditProfile;
 import esprit.tn.farmily.Profile.fields_fragment;
 import esprit.tn.farmily.Profile.info_fragment;
 import esprit.tn.farmily.Profile.photos_fragment;
@@ -24,6 +26,21 @@ public class profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+
+        Button edit = (Button) findViewById(R.id.EDITMenu);
+        edit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent home = new Intent(getApplicationContext(), EditProfile.class);
+                startActivity(home);
+                overridePendingTransition(0, 0);
+                home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+            }
+        });
 
         Button home = (Button) findViewById(R.id.home_profile);
         home.setOnClickListener(new View.OnClickListener() {

@@ -231,23 +231,17 @@ tools:context="esprit.tn.farmily.profile">
         </Button>
     </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_alignParentStart="true"
 
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
         android:background="@drawable/head"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -275,12 +269,12 @@ tools:context="esprit.tn.farmily.profile">
                 android:textColor="#ffffff"
                 android:textSize="30dp"></TextView>
 
-            <ImageView
-                android:id="@+id/imageMenu"
+            <Button
+                android:id="@+id/EDITMenu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="75dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="-5dp"
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/ic_baseline_settings_24"
                 android:contentDescription="@string/app_name"
@@ -294,7 +288,10 @@ tools:context="esprit.tn.farmily.profile">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.constraintlayout.widget.Guideline
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
     android:id="@+id/guideline6"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
