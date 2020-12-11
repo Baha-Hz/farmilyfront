@@ -1,4 +1,4 @@
-package esprit.tn.farmily;
+package esprit.tn.farmily.onbording;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import esprit.tn.farmily.R;
+import esprit.tn.farmily.onbording.onboarding_two;
 
 public class onboarding_one extends AppCompatActivity {
 
@@ -20,7 +23,7 @@ public class onboarding_one extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent startIntent = new Intent(getApplicationContext(),onboarding_two.class);
+                Intent startIntent = new Intent(getApplicationContext(), onboarding_two.class);
                 startActivity(startIntent);
                 overridePendingTransition(0,0);
                 startIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

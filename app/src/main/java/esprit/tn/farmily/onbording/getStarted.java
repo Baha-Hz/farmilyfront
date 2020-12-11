@@ -1,4 +1,4 @@
-package esprit.tn.farmily;
+package esprit.tn.farmily.onbording;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import esprit.tn.farmily.R;
+import esprit.tn.farmily.LoginrRegister.signUp;
 
 public class getStarted extends AppCompatActivity {
 
@@ -17,7 +20,7 @@ public class getStarted extends AppCompatActivity {
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gosignup = new Intent(getApplicationContext(),signUp.class);
+                Intent gosignup = new Intent(getApplicationContext(), signUp.class);
                 startActivity(gosignup);
                 overridePendingTransition(0,0);
                 gosignup.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -28,7 +31,7 @@ public class getStarted extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gologin = new Intent(getApplicationContext(),login.class);
+                Intent gologin = new Intent(getApplicationContext(), esprit.tn.farmily.LoginrRegister.login.class);
                 startActivity(gologin);
                 overridePendingTransition(0,0);
                 gologin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

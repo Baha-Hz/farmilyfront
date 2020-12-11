@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.profile;
+import esprit.tn.farmily.profilre.profile;
 
 public class EditProfile extends AppCompatActivity {
 

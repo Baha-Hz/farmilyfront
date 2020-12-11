@@ -1,4 +1,4 @@
-package esprit.tn.farmily;
+package esprit.tn.farmily.onbording;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import esprit.tn.farmily.R;
 
 public class onboarding_three extends AppCompatActivity {
 
@@ -17,7 +19,7 @@ public class onboarding_three extends AppCompatActivity {
         start3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent1 = new Intent(getApplicationContext(),onboarding_two.class);
+                Intent startIntent1 = new Intent(getApplicationContext(), onboarding_two.class);
                 startActivity(startIntent1);
             }
         });
@@ -25,7 +27,7 @@ public class onboarding_three extends AppCompatActivity {
         start4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent2 = new Intent(getApplicationContext(),onboarding_one.class);
+                Intent startIntent2 = new Intent(getApplicationContext(), onboarding_one.class);
                 startActivity(startIntent2);
                 overridePendingTransition(0,0);
                 startIntent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -36,7 +38,7 @@ public class onboarding_three extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent welcome = new Intent(getApplicationContext(),getStarted.class);
+                Intent welcome = new Intent(getApplicationContext(), getStarted.class);
                 startActivity(welcome);
                 overridePendingTransition(0,0);
                 welcome.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

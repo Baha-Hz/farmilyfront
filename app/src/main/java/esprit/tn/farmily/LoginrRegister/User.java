@@ -1,4 +1,4 @@
-package esprit.tn.farmily.entity;
+package esprit.tn.farmily.LoginrRegister;
 
 public class User {
 
@@ -19,6 +19,10 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(){
+
     }
 
     public String getFullname() {

@@ -19,16 +19,16 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Profile.EditProfile"></activity>
         <activity android:name=".feed.Comments" />
-        <activity android:name=".notification" />
+        <activity android:name=".notification.notification" />
         <activity android:name=".messages.messages" />
-        <activity android:name=".profile" />
+        <activity android:name=".profilre.profile" />
         <activity android:name=".feed.feed" />
-        <activity android:name=".signUp" />
-        <activity android:name=".getStarted" />
-        <activity android:name=".login" />
-        <activity android:name=".onboarding_three" />
-        <activity android:name=".onboarding_two" />
-        <activity android:name=".onboarding_one">
+        <activity android:name=".LoginrRegister.signUp" />
+        <activity android:name=".onbording.getStarted" />
+        <activity android:name=".LoginrRegister.login" />
+        <activity android:name=".onbording.onboarding_three" />
+        <activity android:name=".onbording.onboarding_two" />
+        <activity android:name=".onbording.onboarding_one">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

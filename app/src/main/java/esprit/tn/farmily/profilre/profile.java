@@ -1,4 +1,4 @@
-package esprit.tn.farmily;
+package esprit.tn.farmily.profilre;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +17,10 @@ import esprit.tn.farmily.Profile.fields_fragment;
 import esprit.tn.farmily.Profile.info_fragment;
 import esprit.tn.farmily.Profile.photos_fragment;
 
+import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
+import esprit.tn.farmily.notification.notification;
 
 public class profile extends AppCompatActivity {
 
