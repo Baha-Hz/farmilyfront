@@ -20,3 +20,4 @@ public class APIclient {
     public static APIinterfacee apIinterface() { return getClient().create(APIinterfacee.class); }
 
 }
+
