@@ -8,6 +8,7 @@
     tools:context=".Profile.profile"
     tools:openDrawer="start">
 
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -219,6 +220,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/fullnamefullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsmedium"
@@ -256,6 +258,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/emailemail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsmedium"
@@ -292,6 +295,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/phonephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsmedium"

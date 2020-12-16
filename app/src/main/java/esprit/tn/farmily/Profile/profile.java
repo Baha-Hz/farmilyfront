@@ -23,6 +23,7 @@ import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
 import esprit.tn.farmily.notification.notification;
+import esprit.tn.farmily.utilities.CurrentSession;
 
 public class profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,10 +34,24 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
     Menu menu;
     TextView textView;
 
+    TextView phone,username,fullname,role,email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        phone = findViewById(R.id.phonephone);
+        role = findViewById(R.id.rolerole);
+        username = findViewById(R.id.Useruser);
+        fullname = findViewById(R.id.fullnamefullname);
+        email = findViewById(R.id.emailemail);
+
+        phone.setText(CurrentSession.CurrentUser.getPhone().toString());
+        role.setText(CurrentSession.CurrentUser.getRole());
+        username.setText(CurrentSession.CurrentUser.getUsername());
+        fullname.setText(CurrentSession.CurrentUser.getFullname());
+        email.setText(CurrentSession.CurrentUser.getEmail());
 
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);

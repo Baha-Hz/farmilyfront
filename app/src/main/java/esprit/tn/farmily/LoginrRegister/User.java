@@ -1,28 +1,51 @@
 package esprit.tn.farmily.LoginrRegister;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
-
+    @SerializedName("profileimage")
+    @Expose
+    private String profileimage;
+    @SerializedName("_id")
+    @Expose
+    private String id;
+    @SerializedName("fullname")
+    @Expose
     private String fullname;
+    @SerializedName("username")
+    @Expose
     private String username;
+    @SerializedName("email")
+    @Expose
     private String email;
-    private  String password;
+    @SerializedName("password")
+    @Expose
+    private String password;
+    @SerializedName("role")
+    @Expose
     private String role;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
+    @SerializedName("phone")
+    @Expose
+    private Integer phone;
 
-    public User(String fullname, String username, String email, String password, String role) {
-        this.fullname = fullname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public String getProfileimage() {
+        return profileimage;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public void setProfileimage(String profileimage) {
+        this.profileimage = profileimage;
     }
 
-    public User(){
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFullname() {
@@ -65,14 +88,21 @@ public class User {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "fullname='" + fullname + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+    public Integer getV() {
+        return v;
     }
+
+    public void setV(Integer v) {
+        this.v = v;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
+
 }
+
