@@ -22,7 +22,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent home = new Intent(getApplicationContext(), profile2.class);
+                Intent home = new Intent(getApplicationContext(), profile.class);
                 startActivity(home);
                 overridePendingTransition(0, 0);
                 home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
