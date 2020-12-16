@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.profilre.profile;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent home = new Intent(getApplicationContext(), profile.class);
+                Intent home = new Intent(getApplicationContext(), profile2.class);
                 startActivity(home);
                 overridePendingTransition(0, 0);
                 home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

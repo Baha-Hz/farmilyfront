@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_fileds"
+            android:icon="@drawable/ic_field"
+            android:title="My Fileds" />
+
+        <item
+            android:id="@+id/nav_Add"
+            android:icon="@drawable/ic_add"
+            android:title="Add Filed " />
+
+        <item
+            android:id="@+id/nav_engineers"
+            android:icon="@drawable/ic_eng"
+            android:title="My Engineers" />
+
+        <item
+            android:id="@+id/nav_hire"
+            android:icon="@drawable/ic_hire"
+            android:title="Hire" />
+    </group>
+
+    <item android:title="Profile">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+
+
+                <item
+                    android:id="@+id/nav_Editprofile"
+                    android:icon="@drawable/ic_profile"
+                    android:title="Edit Profile" />
+
+                <item
+                    android:id="@+id/nav_questions"
+                    android:icon="@drawable/ic_q"
+                    android:title="My questions " />
+
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Session">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_remove"
+                android:icon="@drawable/ic_baseline_delete_24"
+                android:title="Remove Acount" />
+
+            <item
+                android:id="@+id/nav_Logout"
+                android:icon="@drawable/ic_log_out"
+                android:title="Log out" />
+        </menu>
+    </item>
+</menu>

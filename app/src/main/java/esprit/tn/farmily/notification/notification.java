@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import esprit.tn.farmily.Profile.profile;
+import esprit.tn.farmily.Profile.profile2;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
@@ -21,7 +23,7 @@ public class notification extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profile = new Intent(getApplicationContext(), esprit.tn.farmily.profilre.profile.class);
+                Intent profile = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
                 startActivity(profile);
                 overridePendingTransition(0,0);
                 profile.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

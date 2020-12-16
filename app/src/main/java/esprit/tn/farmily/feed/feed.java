@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import esprit.tn.farmily.Profile.profile;
+import esprit.tn.farmily.Profile.profile2;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.messages.messages;
 import esprit.tn.farmily.notification.notification;
@@ -38,7 +40,7 @@ public class feed extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.profilre.profile.class);
+                Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
                 startActivity(proint);
                 overridePendingTransition(0,0);
                 proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

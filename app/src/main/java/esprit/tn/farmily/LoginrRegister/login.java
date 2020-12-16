@@ -76,21 +76,11 @@ public class login extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()) {
+
+                    Log.d("loginNet", String.valueOf(response.code()));
                     Toast.makeText(login.this, response.body() ,Toast.LENGTH_SHORT).show();
                     assert response.body() != null;
-                    Log.d("loginNet", response.body());
                     loginError.setVisibility(View.INVISIBLE);
-
-                    //CurrentSession Handler:
-                    //assign static variables!
-                    //I might need to create a CurrentSession instance here to access none static variables and remove public.
-
-//                    CurrentSession.CurrentUserEmail = email;
-//                    CurrentSession.CurrentUserToken = "";
-//
-//                    CurrentSession.getCurrentUser(email);
-
-                    // go to mainNavActivity Home Fragment
                     Intent goMainNavAct = new Intent(login.this, feed.class);
                     startActivity(goMainNavAct);
 
@@ -99,7 +89,7 @@ public class login extends AppCompatActivity {
                     loginError.setVisibility(View.VISIBLE);
                     try {
                         loginError.setText(response.errorBody().string());
-                        Log.d("loginNetFF" , response.errorBody().string());
+                        Log.d("loginNetFF" ,"failed to string errorBody()");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

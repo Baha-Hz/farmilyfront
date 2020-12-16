@@ -1,4 +1,4 @@
-package esprit.tn.farmily.profilre;
+package esprit.tn.farmily.Profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +22,12 @@ import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
 import esprit.tn.farmily.notification.notification;
 
-public class profile extends AppCompatActivity {
+public class profile2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.profile2);
 
 
         Button edit = (Button) findViewById(R.id.EDITMenu);
