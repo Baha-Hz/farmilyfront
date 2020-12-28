@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feed.AddPost">
+
+    <LinearLayout
+        android:id="@+id/linearLayout14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="5dp">
+
+        <Button
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="12dp"
+            android:background="@drawable/back"></Button>
+
+        <Button
+            android:id="@+id/newpost"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/Transparant"
+            android:backgroundTint="#2B2B2B"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="Post"
+            android:textColor="#8EBF7E"
+            android:textSize="20dp">
+
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="225dp"
+        android:layout_marginBottom="744dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout14"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/salah"></ImageView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/User1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:paddingStart="4dp"
+                android:text="Username"
+                android:textSize="18dp"></TextView>
+
+            <TextView
+                android:id="@+id/Role_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/poppinsregular"
+                android:paddingStart="4dp"
+                android:text="Role"
+                android:textSize="14dp"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/add_quest"
+        android:layout_width="350dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="10dp"
+        android:gravity="start"
+        android:hint="what is your question today"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout13"></EditText>
+
+    <RadioGroup
+        android:id="@+id/radiogr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/radio_selector"
+            android:button="@color/Transparant"
+
+            android:padding="10dp"
+            android:text="Fileds "
+            android:textColor="@drawable/text_color" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/radio_selector"
+            android:button="@color/Transparant"
+
+            android:padding="10dp"
+            android:text="Animals"
+            android:textColor="@drawable/text_color" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="874dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="872dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="-8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="-73dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="312dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="564dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

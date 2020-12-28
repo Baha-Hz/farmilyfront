@@ -17,8 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.profile"></activity>
+        <activity android:name=".feed.Comment"></activity>
+        <activity android:name=".feed.AddPost" />
+        <activity android:name=".Profile.profile" />
         <activity android:name=".Profile.EditProfile" />
+        <activity android:name=".Profile.showfileds" />
         <activity android:name=".feed.Comments" />
         <activity android:name=".notification.notification" />
         <activity android:name=".messages.messages" />

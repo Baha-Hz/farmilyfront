@@ -48,7 +48,7 @@ public class signUp extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         email = findViewById(R.id.email);
-        role = findViewById(R.id.role);
+        role = findViewById(R.id.topic);
         signUpButton = findViewById(R.id.gotoProfile);
         goLoginButton = findViewById(R.id.loginText);
         errorText = findViewById(R.id.errorText);

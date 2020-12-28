@@ -6,35 +6,77 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import esprit.tn.farmily.Profile.profile;
-import esprit.tn.farmily.Profile.profile2;
+import java.util.ArrayList;
+import java.util.List;
+
+import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.messages.messages;
+import esprit.tn.farmily.models.Post;
 import esprit.tn.farmily.notification.notification;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class feed extends AppCompatActivity {
+
+
+    TextView question,userpost,topic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed);
 
         RecyclerView recyclerView =findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MypostsData[] mypostsData = new MypostsData[]{
 
-                new MypostsData("Walid","farmer",R.drawable.walid,"asslema ya jme3a bellehy el zenbe3 win yetbe3"),
-                new MypostsData("salah","engineer",R.drawable.salah,"famech tractor behy lel kre pour le mois de mars"),
-                new MypostsData("Hamed","farmer",R.drawable.hamed,"wa9tech saison mta3 el toffe7 fi tounes ?"),
-                new MypostsData("Riadh","farmer",R.drawable.riadh,"win nal9a zorri3a behya mta3 tomate cerise ?"),
 
-        };
-        MyPostAdapter myPostAdapter = new MyPostAdapter(mypostsData,feed.this);
-        recyclerView.setAdapter(myPostAdapter);
+        Call<List<Post>> showpostsCall = APIclient.apIinterface().getallPosts();
+        showpostsCall.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()){Log.d("FeedNet" ,toString());}
+
+                    Log.d("feednet", response.body().get(0).getQuestion());
+                    MyPostAdapter myAdapter = new MyPostAdapter(getApplicationContext(), response.body());
+                    recyclerView.setAdapter(myAdapter);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, true);
+                    layoutManager.setStackFromEnd(true);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.scrollToPosition(0);
+
+
+
+                }
+                //Log.d("dfdfdfdf",posts.toString());
+
+
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.d("FeedNet" , t.toString());
+            }
+        });
+
+        Button addpost = (Button) findViewById(R.id.add_post);
+        addpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent post = new Intent(getApplicationContext(), esprit.tn.farmily.feed.AddPost.class);
+                startActivity(post);
+                overridePendingTransition(0,0);
+                post.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+            }
+        });
+// bottembar navigation
+
 
         Button profile = (Button) findViewById(R.id.profil_feed);
         profile.setOnClickListener(new View.OnClickListener() {

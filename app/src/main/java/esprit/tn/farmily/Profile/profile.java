@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
+import esprit.tn.farmily.LoginrRegister.login;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
@@ -137,6 +138,15 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent = new Intent(profile.this, EditProfile.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_fileds:
+                Intent fileds = new Intent(profile.this, showfileds.class);
+                startActivity(fileds);
+                break;
+            case R.id.nav_Logout:
+                Intent houni = new Intent(profile.this, login.class);
+                startActivity(houni);
+                break;
+
 
 
         }

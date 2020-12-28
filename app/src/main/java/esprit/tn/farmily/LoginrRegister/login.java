@@ -45,13 +45,12 @@ public class login extends AppCompatActivity {
         signbutton = findViewById(R.id.signUpText);
 
         //login Button onclick listener
-        loginbutton.setOnClickListener(new View.OnClickListener() {
+        loginbutton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginIn();
             }
-        });
-
+        }));
 
 
         //Go to Register Activity
