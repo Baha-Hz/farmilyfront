@@ -22,7 +22,6 @@
         <activity android:name=".Profile.profile" />
         <activity android:name=".Profile.EditProfile" />
         <activity android:name=".Profile.showfileds" />
-        <activity android:name=".feed.Comments" />
         <activity android:name=".notification.notification" />
         <activity android:name=".messages.messages" />
         <activity android:name=".Profile.profile2" />

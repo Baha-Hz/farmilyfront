@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +21,19 @@ import esprit.tn.farmily.models.Post;
 import retrofit2.http.POST;
 
 public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder>  {
+    private  OnItemClickListener mListener ;
+
+
+    public interface  OnItemClickListener {
+        void OnItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener Listener){
+        mListener = Listener;
+    }
 
     public static List<Post> postdata;
-    Context context ;
+    public Context context ;
     public MyPostAdapter(Context context , List<Post> data) {
         this.context = context;
         this.postdata = data;
@@ -46,6 +57,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         holder.textViewrole.setText(postdata.get(position).getTopic());
         //holder.profilepic.setImageResource(postUser.getProfileimage());
         holder.textViewpost.setText(postdata.get(position).getQuestion());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Comment.class);
+                context.startActivity(intent);
+            }
+        });
 
 
 
@@ -57,7 +75,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         return postdata.size() ;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView profilepic;
         TextView  textViewname;
         TextView  textViewrole;
@@ -67,6 +85,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             profilepic = itemView.findViewById(R.id.profilepic);
             textViewname = itemView.findViewById(R.id.userpost);
             textViewrole= itemView.findViewById(R.id.topic);
@@ -77,7 +96,11 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
 
 
+
+
         }
+
+
     }
 
 }

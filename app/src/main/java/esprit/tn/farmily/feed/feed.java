@@ -44,9 +44,10 @@ public class feed extends AppCompatActivity {
                 if(!response.isSuccessful()){Log.d("FeedNet" ,toString());}
 
                     Log.d("feednet", response.body().get(0).getQuestion());
+
                     MyPostAdapter myAdapter = new MyPostAdapter(getApplicationContext(), response.body());
                     recyclerView.setAdapter(myAdapter);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                     layoutManager.setStackFromEnd(true);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.scrollToPosition(0);
@@ -119,5 +120,7 @@ public class feed extends AppCompatActivity {
 
 
     }
+
+
 }
 
