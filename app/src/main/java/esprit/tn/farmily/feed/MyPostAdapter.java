@@ -55,13 +55,16 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
         holder.textViewname.setText(postdata.get(position).getUser());
         holder.textViewrole.setText(postdata.get(position).getTopic());
+        String id = postdata.get(position).getId();
         //holder.profilepic.setImageResource(postUser.getProfileimage());
         holder.textViewpost.setText(postdata.get(position).getQuestion());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Comment.class);
-                context.startActivity(intent);
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), Comment.class);
+                intent.putExtra("Postid",id);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                holder.itemView.getContext().startActivity(intent);
             }
         });
 

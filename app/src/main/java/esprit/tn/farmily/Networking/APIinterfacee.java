@@ -3,6 +3,7 @@ package esprit.tn.farmily.Networking;
 import java.util.List;
 
 import esprit.tn.farmily.LoginrRegister.User;
+import esprit.tn.farmily.models.Comment;
 import esprit.tn.farmily.models.Post;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -24,6 +25,9 @@ public interface APIinterfacee {
 
     @POST("api/post/addpost")
     Call<Post> addpost (@Body Post post);
+
+    @GET("api/post/allpostcomments")
+    Call<List<Comment>> getallPostcomment();
 
 
 
