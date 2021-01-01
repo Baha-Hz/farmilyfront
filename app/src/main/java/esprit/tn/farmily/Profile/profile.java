@@ -146,6 +146,9 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                 Intent houni = new Intent(profile.this, login.class);
                 startActivity(houni);
                 break;
+            case R.id.nav_hire:
+                Intent show = new Intent(profile.this , Hire.class);
+                startActivity(show);
 
 
 

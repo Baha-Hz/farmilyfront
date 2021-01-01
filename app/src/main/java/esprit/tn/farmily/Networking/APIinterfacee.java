@@ -4,6 +4,8 @@ import java.util.List;
 
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.models.Comment;
+import esprit.tn.farmily.models.Engineer;
+import esprit.tn.farmily.models.Hire;
 import esprit.tn.farmily.models.Post;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -34,6 +36,12 @@ public interface APIinterfacee {
     @GET("api/post/allpostcomments/{postid}")
     Call<List<Comment>> getallPostcomment(@Path("postid") String postid);
 
+    @GET("api/job//showallengineers/{role}")
+    Call<List<Engineer>> showeng (@Path("role") String role);
 
+    @GET("api/job/alldetails/{username}")
+    Call<Engineer> detail (@Path("username") String role);
 
+    @POST("api/job/hireengineer")
+    Call<Hire> Hire (@Body Hire hire);
 }
