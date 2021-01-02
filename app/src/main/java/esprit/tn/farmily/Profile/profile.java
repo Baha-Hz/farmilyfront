@@ -35,7 +35,6 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     Menu menu;
     TextView textView;
-    TextView headeuser,headerrole;
 
     TextView phone,username,fullname,role,email;
 
