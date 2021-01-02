@@ -7,10 +7,13 @@ import esprit.tn.farmily.models.Comment;
 import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
 import esprit.tn.farmily.models.Post;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -21,7 +24,7 @@ public interface APIinterfacee {
     @POST("api/user/register")
     Call<User> registerUser(@Body User user);
 
-    @POST("api/profile/uploadimage")
+    @POST("api/profile/updateuser")
     Call<User> editProfile(@Body User user);
 
     @GET("api/post/allposts")
@@ -47,6 +50,11 @@ public interface APIinterfacee {
 
     @GET("/api/job//hiredemployees/{employer}")
     Call<List<Hire>> Pending (@Path("employer") String role);
+
+    @Multipart
+    @POST("api/profile/uploadpic")
+    Call<String> uploadpic(@Part MultipartBody.Part file);
+
 
 
 }
