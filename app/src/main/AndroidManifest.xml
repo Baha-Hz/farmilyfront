@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.Detail"></activity>
+        <activity android:name=".Profile.Header"></activity>
+        <activity android:name=".Profile.Myengineer" />
+        <activity android:name=".Profile.Detail" />
         <activity android:name=".Profile.Hire" />
         <activity android:name=".feed.com_display" />
         <activity android:name=".feed.AddPost" />

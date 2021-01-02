@@ -84,6 +84,12 @@ public class profile2 extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
         BottomNavigationView bottomNav = findViewById(R.id.profil_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         //I added this if statement to keep the selected fragment when rotating the device
@@ -100,9 +106,6 @@ public class profile2 extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.nav_filed:
                             selectedFragment = new fields_fragment();
-                            break;
-                        case R.id.nav_photos:
-                            selectedFragment = new photos_fragment();
                             break;
                         case R.id.nav_info:
                             selectedFragment = new info_fragment();

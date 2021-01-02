@@ -44,4 +44,9 @@ public interface APIinterfacee {
 
     @POST("api/job/hireengineer")
     Call<Hire> Hire (@Body Hire hire);
+
+    @GET("/api/job//hiredemployees/{employer}")
+    Call<List<Hire>> Pending (@Path("employer") String role);
+
+
 }

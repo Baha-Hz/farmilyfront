@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     Menu menu;
     TextView textView;
+    TextView headeuser,headerrole;
 
     TextView phone,username,fullname,role,email;
 
@@ -41,7 +43,6 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-
         phone = findViewById(R.id.phonephone);
         role = findViewById(R.id.rolerole);
         username = findViewById(R.id.Useruser);
@@ -55,6 +56,14 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         email.setText(CurrentSession.CurrentUser.getEmail());
 
         drawerLayout=findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.headeruser);
+        txtProfileName.setText(CurrentSession.CurrentUser.getUsername());
+        TextView txtRole = (TextView) navigationView.getHeaderView(0).findViewById(R.id.HeaderRole);
+        txtRole.setText(CurrentSession.CurrentUser.getRole());
+
         navigationView=findViewById(R.id.nav_view);
         textView=findViewById(R.id.textView);
         toolbar=findViewById(R.id.toolbar);
@@ -149,6 +158,10 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.nav_hire:
                 Intent show = new Intent(profile.this , Hire.class);
                 startActivity(show);
+            case R.id.nav_engineers:
+                Intent open = new Intent(profile.this , Myengineer.class);
+                startActivity(open);
+
 
 
 

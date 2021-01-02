@@ -2,14 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_filed"
-        android:icon="@drawable/ic_field"
-        android:title="Fileds" />
-    <item
-        android:id="@+id/nav_photos"
-        android:icon="@drawable/ic_image"
-        android:title="Photos" />
+        android:icon="@drawable/ic_engineer"
+        android:title="Hired" />
+
     <item
         android:id="@+id/nav_info"
-        android:icon="@drawable/ic_personal_information"
-        android:title="Information" />
+        android:icon="@drawable/ic_clock"
+        android:title="Pending" />
 </menu>
