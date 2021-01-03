@@ -12,22 +12,37 @@ import esprit.tn.farmily.Profile.profile2;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
+import esprit.tn.farmily.utilities.CurrentSession;
 
 public class notification extends AppCompatActivity {
-
+    String role ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification);
+        role= CurrentSession.CurrentUser.getRole().toString();
+
         Button profile = (Button) findViewById(R.id.profil_notif);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profile = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
-                startActivity(profile);
-                overridePendingTransition(0,0);
-                profile.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
+                switch (role) {
+                    case "Farmer":
+                        Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
+                        startActivity(proint);
+                        overridePendingTransition(0, 0);
+                        proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        break;
+                    case "Engineer":
+                        Intent to = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profileeng.class);
+                        startActivity(to);
+                        overridePendingTransition(0, 0);
+                        to.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        break;
+
+                }
 
             }
         });

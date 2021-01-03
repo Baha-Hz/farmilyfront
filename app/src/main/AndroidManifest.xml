@@ -17,13 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.Header"></activity>
+        <activity android:name=".Profile.HIre_req"></activity>
+        <activity android:name=".Profile.Header" />
         <activity android:name=".Profile.Myengineer" />
         <activity android:name=".Profile.Detail" />
         <activity android:name=".Profile.Hire" />
         <activity android:name=".feed.com_display" />
         <activity android:name=".feed.AddPost" />
         <activity android:name=".Profile.profile" />
+        <activity android:name=".Profile.profileeng" />
         <activity android:name=".Profile.EditProfile" />
         <activity android:name=".Profile.showfileds" />
         <activity android:name=".notification.notification" />

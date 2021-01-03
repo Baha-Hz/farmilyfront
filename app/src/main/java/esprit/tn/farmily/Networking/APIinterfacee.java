@@ -45,8 +45,13 @@ public interface APIinterfacee {
     @POST("api/job/hireengineer")
     Call<Hire> Hire (@Body Hire hire);
 
-    @GET("/api/job//hiredemployees/{employer}")
+    @GET("api/job/hiredemployees/{employer}")
     Call<List<Hire>> Pending (@Path("employer") String role);
 
+    @GET("api/job/Pendingjobs/{employee}")
+    Call<List<Hire>> EngPending (@Path("employee") String role);
+
+    @POST("api/job/StateEngineer/{id}")
+    Call<Hire> acceptJob (@Path("id") String role);
 
 }
