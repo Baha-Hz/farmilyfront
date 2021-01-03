@@ -20,9 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
@@ -42,7 +45,7 @@ public class EditProfile extends AppCompatActivity {
 
     private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 1;
     EditText full_name,password,email,phone;
-    ImageView profileimage;
+    CircleImageView profileimage;
     TextView errorText;
     Button edit,getimage;
     String imageurl;
@@ -57,6 +60,10 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.edit_profile);
         edit = (Button) findViewById(R.id.button2);
         getimage = (Button) findViewById(R.id.getimage);
+
+        profileimage= findViewById(R.id.profileimage);
+        Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(profileimage);
+
 
 
 
@@ -201,6 +208,9 @@ public class EditProfile extends AppCompatActivity {
             Log.d("FILEPATHBRO", "File Path: " + path);
             // Get the file instance
             imageurl=path;
+            CircleImageView img = findViewById(R.id.profileimage);
+            img.setImageURI(uri);
+
         }
 
     }

@@ -6,21 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.login;
+import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
@@ -37,6 +44,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
     TextView textView;
 
     TextView phone,username,fullname,role,email;
+    CircleImageView userimage,headerimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         username = findViewById(R.id.Useruser);
         fullname = findViewById(R.id.fullnamefullname);
         email = findViewById(R.id.emailemail);
-
+        userimage = findViewById(R.id.userimage);
         phone.setText(CurrentSession.CurrentUser.getPhone().toString());
         role.setText(CurrentSession.CurrentUser.getRole());
         username.setText(CurrentSession.CurrentUser.getUsername());
@@ -55,6 +63,9 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         email.setText(CurrentSession.CurrentUser.getEmail());
 
         drawerLayout=findViewById(R.id.drawer_layout);
+        Glide.with(getApplicationContext())
+                .load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage())
+                .into(userimage);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -67,6 +78,9 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         textView=findViewById(R.id.textView);
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        headerimage=findViewById(R.id.headerimage);
+        @SuppressLint("WrongViewCast") CircleImageView headerimage = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.headerimage);
+        Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(headerimage);
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle=new
