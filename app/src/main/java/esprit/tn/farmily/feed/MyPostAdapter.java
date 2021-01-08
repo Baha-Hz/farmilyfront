@@ -78,6 +78,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
+
             profilepic = itemView.findViewById(R.id.profilepic);
             textViewname = itemView.findViewById(R.id.userpost);
             textViewrole= itemView.findViewById(R.id.topic);

@@ -13,8 +13,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.LoginrRegister.login;
 import esprit.tn.farmily.LoginrRegister.signUp;
@@ -31,6 +34,7 @@ public class AddPost extends AppCompatActivity {
     TextView Username,Role,errorText;
     Button addbutton ;
     RadioGroup radioGroup;
+    CircleImageView userimage;
 
 
     @Override
@@ -39,9 +43,11 @@ public class AddPost extends AppCompatActivity {
         setContentView(R.layout.add_post);
         Username = findViewById(R.id.User1);
         Role = findViewById(R.id.Role_1);
+        userimage = findViewById(R.id.userimage);
         addbutton = findViewById(R.id.newpost);
         Role.setText(CurrentSession.CurrentUser.getRole());
         Username.setText(CurrentSession.CurrentUser.getUsername());
+        Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(userimage);
 
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override

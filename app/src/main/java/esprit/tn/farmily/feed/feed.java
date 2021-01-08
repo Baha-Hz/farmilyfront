@@ -29,6 +29,7 @@ public class feed extends AppCompatActivity {
     String role ;
     TextView question,userpost,topic;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
