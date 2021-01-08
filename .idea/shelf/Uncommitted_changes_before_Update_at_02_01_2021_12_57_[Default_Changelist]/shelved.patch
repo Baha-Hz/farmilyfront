@@ -1,0 +1,778 @@
+Index: app/src/main/java/esprit/tn/farmily/Networking/APIclient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.Networking;\r\n\r\nimport retrofit2.Retrofit;\r\nimport retrofit2.converter.gson.GsonConverterFactory;\r\nimport retrofit2.converter.scalars.ScalarsConverterFactory;\r\n\r\npublic class APIclient {\r\n\r\n    public static String base_url = \"http://192.168.1.6:3000/\";\r\n\r\n    public static Retrofit getClient() {\r\n        Retrofit retrofit = new Retrofit.Builder()\r\n                .baseUrl(base_url)\r\n                .addConverterFactory(ScalarsConverterFactory.create())\r\n                .addConverterFactory(GsonConverterFactory.create())\r\n                .build();\r\n        return retrofit;\r\n    }\r\n\r\n    public static APIinterfacee apIinterface() { return getClient().create(APIinterfacee.class); }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/Networking/APIclient.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/Networking/APIclient.java	(date 1609529672363)
+@@ -6,9 +6,10 @@
+ 
+ public class APIclient {
+ 
+-    public static String base_url = "http://192.168.1.6:3000/";
++    public static String base_url = "http://192.168.1.4:3000/";
+ 
+     public static Retrofit getClient() {
++
+         Retrofit retrofit = new Retrofit.Builder()
+                 .baseUrl(base_url)
+                 .addConverterFactory(ScalarsConverterFactory.create())
+Index: app/src/main/java/esprit/tn/farmily/Networking/APIinterfacee.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.Networking;\r\n\r\nimport java.util.List;\r\n\r\nimport esprit.tn.farmily.LoginrRegister.User;\r\nimport esprit.tn.farmily.models.Post;\r\nimport retrofit2.Call;\r\nimport retrofit2.http.Body;\r\nimport retrofit2.http.GET;\r\nimport retrofit2.http.POST;\r\n\r\npublic interface APIinterfacee {\r\n    @POST(\"api/user/login\")\r\n    Call<User> loginUser(@Body User user);\r\n\r\n    @POST(\"api/user/register\")\r\n    Call<User> registerUser(@Body User user);\r\n\r\n    @POST(\"api/profile/uploadimage\")\r\n    Call<User> editProfile(@Body User user);\r\n\r\n    @GET(\"api/post/allposts\")\r\n    Call<List<Post>> getallPosts();\r\n\r\n    @POST(\"api/post/addpost\")\r\n    Call<Post> addpost (@Body Post post);\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/Networking/APIinterfacee.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/Networking/APIinterfacee.java	(date 1609539951972)
+@@ -4,10 +4,14 @@
+ 
+ import esprit.tn.farmily.LoginrRegister.User;
+ import esprit.tn.farmily.models.Post;
++import okhttp3.MultipartBody;
+ import retrofit2.Call;
+ import retrofit2.http.Body;
+ import retrofit2.http.GET;
++import retrofit2.http.Multipart;
+ import retrofit2.http.POST;
++import retrofit2.http.Part;
++import retrofit2.http.Path;
+ 
+ public interface APIinterfacee {
+     @POST("api/user/login")
+@@ -16,15 +20,24 @@
+     @POST("api/user/register")
+     Call<User> registerUser(@Body User user);
+ 
+-    @POST("api/profile/uploadimage")
++    @POST("api/profile/updateuser")
+     Call<User> editProfile(@Body User user);
+ 
++    @GET("api/profile/info")
++    Call<User> showInfo();
++
++    @GET("api/profile/getimage")
++    Call<User> showPhoto();
++
+     @GET("api/post/allposts")
+     Call<List<Post>> getallPosts();
+ 
+     @POST("api/post/addpost")
+     Call<Post> addpost (@Body Post post);
+ 
++    @Multipart
++    @POST("api/profile/uploadpic")
++    Call<String> uploadProfilePicture(@Part MultipartBody.Part file);
+ 
+ 
+ }
+Index: app/src/main/java/esprit/tn/farmily/Profile/profile.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.Profile;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.ActionBarDrawerToggle;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.view.GravityCompat;\r\nimport androidx.drawerlayout.widget.DrawerLayout;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.Menu;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.widget.Toolbar;\r\n\r\nimport com.google.android.material.navigation.NavigationView;\r\n\r\nimport esprit.tn.farmily.LoginrRegister.login;\r\nimport esprit.tn.farmily.R;\r\nimport esprit.tn.farmily.feed.feed;\r\nimport esprit.tn.farmily.messages.messages;\r\nimport esprit.tn.farmily.notification.notification;\r\nimport esprit.tn.farmily.utilities.CurrentSession;\r\n\r\npublic class profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {\r\n\r\n\r\n    DrawerLayout drawerLayout;\r\n    NavigationView navigationView;\r\n    Toolbar toolbar;\r\n    Menu menu;\r\n    TextView textView;\r\n\r\n    TextView phone,username,fullname,role,email;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.profile);\r\n\r\n        phone = findViewById(R.id.phonephone);\r\n        role = findViewById(R.id.rolerole);\r\n        username = findViewById(R.id.Useruser);\r\n        fullname = findViewById(R.id.fullnamefullname);\r\n        email = findViewById(R.id.emailemail);\r\n\r\n        phone.setText(CurrentSession.CurrentUser.getPhone().toString());\r\n        role.setText(CurrentSession.CurrentUser.getRole());\r\n        username.setText(CurrentSession.CurrentUser.getUsername());\r\n        fullname.setText(CurrentSession.CurrentUser.getFullname());\r\n        email.setText(CurrentSession.CurrentUser.getEmail());\r\n\r\n        drawerLayout=findViewById(R.id.drawer_layout);\r\n        navigationView=findViewById(R.id.nav_view);\r\n        textView=findViewById(R.id.textView);\r\n        toolbar=findViewById(R.id.toolbar);\r\n        setSupportActionBar(toolbar);\r\n\r\n        navigationView.bringToFront();\r\n        ActionBarDrawerToggle toggle=new\r\n                ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);\r\n        drawerLayout.addDrawerListener(toggle);\r\n        toggle.syncState();\r\n        navigationView.setNavigationItemSelectedListener( this);\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        Button home = (Button) findViewById(R.id.home_profile);\r\n        home.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n\r\n                Intent home = new Intent(getApplicationContext(), feed.class);\r\n                startActivity(home);\r\n                overridePendingTransition(0, 0);\r\n                home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n        Button message = (Button) findViewById(R.id.message_profile);\r\n        message.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n\r\n                Intent message= new Intent(getApplicationContext(), messages.class);\r\n                startActivity(message);\r\n                overridePendingTransition(0, 0);\r\n                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n        Button notif = (Button) findViewById(R.id.notif_profile);\r\n        notif.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n\r\n                Intent notif= new Intent(getApplicationContext(), notification.class);\r\n                startActivity(notif);\r\n                overridePendingTransition(0, 0);\r\n                notif.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onBackPressed(){\r\n        if(drawerLayout.isDrawerOpen(GravityCompat.START)){\r\n            drawerLayout.closeDrawer(GravityCompat.START);\r\n        }\r\n        else\r\n        {super.onBackPressed();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean onNavigationItemSelected(@NonNull MenuItem menuitem) {\r\n        switch (menuitem.getItemId()) {\r\n                case R.id.nav_Editprofile:\r\n                Intent intent = new Intent(profile.this, EditProfile.class);\r\n                startActivity(intent);\r\n                break;\r\n            case R.id.nav_fileds:\r\n                Intent fileds = new Intent(profile.this, showfileds.class);\r\n                startActivity(fileds);\r\n                break;\r\n            case R.id.nav_Logout:\r\n                Intent houni = new Intent(profile.this, login.class);\r\n                startActivity(houni);\r\n                break;\r\n\r\n\r\n\r\n        }\r\n        drawerLayout.closeDrawer(GravityCompat.START);\r\n        return false;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/Profile/profile.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/Profile/profile.java	(date 1609588468726)
+@@ -6,25 +6,32 @@
+ import androidx.core.view.GravityCompat;
+ import androidx.drawerlayout.widget.DrawerLayout;
+ 
++import android.content.Context;
+ import android.content.Intent;
+ import android.os.Bundle;
++import android.util.Log;
+ import android.view.Menu;
+ import android.view.MenuItem;
+ import android.view.View;
+ import android.widget.Button;
++import android.widget.ImageView;
+ import android.widget.TextView;
+ import android.widget.Toast;
+ 
+ import androidx.appcompat.widget.Toolbar;
+ 
++import com.bumptech.glide.Glide;
+ import com.google.android.material.navigation.NavigationView;
+ 
+ import esprit.tn.farmily.LoginrRegister.login;
++import esprit.tn.farmily.Networking.APIclient;
+ import esprit.tn.farmily.R;
+ import esprit.tn.farmily.feed.feed;
+ import esprit.tn.farmily.messages.messages;
++import esprit.tn.farmily.models.User;
+ import esprit.tn.farmily.notification.notification;
+ import esprit.tn.farmily.utilities.CurrentSession;
++import retrofit2.Call;
+ 
+ public class profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+ 
+@@ -34,26 +41,39 @@
+     Toolbar toolbar;
+     Menu menu;
+     TextView textView;
++    ImageView userimage,headerimage;
+ 
+     TextView phone,username,fullname,role,email;
+ 
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.profile);
+ 
++
++
++
+         phone = findViewById(R.id.phonephone);
+         role = findViewById(R.id.rolerole);
+         username = findViewById(R.id.Useruser);
+         fullname = findViewById(R.id.fullnamefullname);
+         email = findViewById(R.id.emailemail);
++        userimage = findViewById(R.id.userimage);
++        headerimage = findViewById(R.id.headerimage);
+ 
+-        phone.setText(CurrentSession.CurrentUser.getPhone().toString());
++        if(CurrentSession.CurrentUser.getPhone()==null)
++        {phone.setText("No Phone Number Added");}
++        else {phone.setText(CurrentSession.CurrentUser.getPhone().toString());}
+         role.setText(CurrentSession.CurrentUser.getRole());
+         username.setText(CurrentSession.CurrentUser.getUsername());
+         fullname.setText(CurrentSession.CurrentUser.getFullname());
+         email.setText(CurrentSession.CurrentUser.getEmail());
+ 
++        Glide.with(getApplicationContext())
++               .load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage())
++               .into(userimage);
++        Log.d("Zeb" , APIclient.base_url+ CurrentSession.CurrentUser.getProfileimage());
+         drawerLayout=findViewById(R.id.drawer_layout);
+         navigationView=findViewById(R.id.nav_view);
+         textView=findViewById(R.id.textView);
+@@ -123,16 +143,19 @@
+ 
+     @Override
+     public void onBackPressed(){
++
+         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+             drawerLayout.closeDrawer(GravityCompat.START);
+         }
+         else
+-        {super.onBackPressed();
++        {
++            super.onBackPressed();
+         }
+     }
+ 
+     @Override
+     public boolean onNavigationItemSelected(@NonNull MenuItem menuitem) {
++
+         switch (menuitem.getItemId()) {
+                 case R.id.nav_Editprofile:
+                 Intent intent = new Intent(profile.this, EditProfile.class);
+Index: app/src/main/java/esprit/tn/farmily/Profile/EditProfile.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.Profile;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.content.SharedPreferences;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport com.google.android.material.textfield.TextInputLayout;\r\n\r\nimport java.io.IOException;\r\n\r\nimport esprit.tn.farmily.LoginrRegister.User;\r\nimport esprit.tn.farmily.LoginrRegister.login;\r\nimport esprit.tn.farmily.LoginrRegister.signUp;\r\nimport esprit.tn.farmily.Networking.APIclient;\r\nimport esprit.tn.farmily.R;\r\nimport esprit.tn.farmily.utilities.CurrentSession;\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class EditProfile extends AppCompatActivity {\r\n\r\n\r\n    EditText full_name,password,email,phone;\r\n    ImageView profileimage;\r\n    TextView errorText;\r\n    Button edit;\r\n\r\n\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n\r\n        setContentView(R.layout.edit_profile);\r\n        edit = (Button) findViewById(R.id.button2);\r\n\r\n\r\n\r\n\r\n\r\n        edit.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n\r\n                Intent home = new Intent(getApplicationContext(), profile.class);\r\n                startActivity(home);\r\n                overridePendingTransition(0, 0);\r\n                home.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n\r\n        Button update = (Button) findViewById(R.id.confirm);\r\n        update.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                updateUser();\r\n            }\r\n        });\r\n\r\n\r\n\r\n    }\r\n\r\n    private void updateUser() {\r\n        full_name = findViewById(R.id.fullnameiput);\r\n        password = findViewById(R.id.passwordinput);\r\n        email = findViewById(R.id.Emailinput);\r\n        phone = findViewById(R.id.phoneinput);\r\n        profileimage= findViewById(R.id.profileimage);\r\n\r\n\r\n\r\n\r\n\r\n        User user = new User();\r\n        user.setUsername(CurrentSession.CurrentUser.getUsername());\r\n        user.setFullname(full_name.getText().toString());\r\n        user.setEmail(email.getText().toString());\r\n        user.setPassword(password.getText().toString());\r\n        try{\r\n            user.setPhone((Integer.parseInt(phone.getText().toString())));\r\n        } catch(NumberFormatException ex){ // handle your exception\r\n            ex.printStackTrace();\r\n        }\r\n        user.setProfileimage(\"/uploads/sponge_homer.jpg\");\r\n\r\n        // doing the call\r\n        Call<User> edit = APIclient.apIinterface().editProfile(user);\r\n        edit.enqueue(new Callback<User>() {\r\n            @Override\r\n            public void onResponse(Call<User> call, Response<User> response) {\r\n                if (response.isSuccessful()) {\r\n                    Log.d(\"edit\", String.valueOf(response.body().getUsername()));\r\n                    Toast.makeText(EditProfile.this, \"Successfully Changed!\", Toast.LENGTH_LONG).show();\r\n                    Intent goProfile = new Intent(EditProfile.this, profile.class);\r\n                    startActivity(goProfile);\r\n                    CurrentSession.CurrentUser = response.body();\r\n                } else {\r\n                    Log.d(\"edit\", \"unsucc response\");\r\n                    errorText.setVisibility(View.VISIBLE);\r\n                    try {\r\n                        errorText.setText(response.errorBody().string());\r\n                    } catch (IOException e) {\r\n                        Log.d(\"edit\", \"failed to string errorBody()\");\r\n                        e.printStackTrace();\r\n                    }\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<User> call, Throwable t) {\r\n                Log.d(\"editNet\", t.toString());\r\n            }\r\n        });\r\n\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/Profile/EditProfile.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/Profile/EditProfile.java	(date 1609582561675)
+@@ -1,9 +1,16 @@
+ package esprit.tn.farmily.Profile;
+ 
++import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.app.ActivityCompat;
+ 
++import android.Manifest;
++import android.app.Activity;
+ import android.content.Intent;
+ import android.content.SharedPreferences;
++import android.content.pm.PackageManager;
++import android.net.Uri;
++import android.os.Build;
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.View;
+@@ -13,8 +20,10 @@
+ import android.widget.TextView;
+ import android.widget.Toast;
+ 
++import com.bumptech.glide.Glide;
+ import com.google.android.material.textfield.TextInputLayout;
+ 
++import java.io.File;
+ import java.io.IOException;
+ 
+ import esprit.tn.farmily.LoginrRegister.User;
+@@ -23,17 +32,27 @@
+ import esprit.tn.farmily.Networking.APIclient;
+ import esprit.tn.farmily.R;
+ import esprit.tn.farmily.utilities.CurrentSession;
++import esprit.tn.farmily.utilities.RealPathUtils;
++import okhttp3.MediaType;
++import okhttp3.MultipartBody;
++import okhttp3.RequestBody;
+ import retrofit2.Call;
+ import retrofit2.Callback;
+ import retrofit2.Response;
+ 
++import static esprit.tn.farmily.utilities.CurrentSession.CurrentUser;
++
+ public class EditProfile extends AppCompatActivity {
+ 
++    String ImagePath;
+ 
++
++    private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 1;
+     EditText full_name,password,email,phone;
+     ImageView profileimage;
+     TextView errorText;
+     Button edit;
++    Button uploadButton;
+ 
+ 
+ 
+@@ -45,8 +64,35 @@
+         setContentView(R.layout.edit_profile);
+         edit = (Button) findViewById(R.id.button2);
+ 
++        uploadButton = findViewById(R.id.uploadimage);
++        Glide.with(getApplicationContext())
++                .load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage())
++                .into(profileimage);
++        uploadButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                //Log.d("testtt", APIclient.base_url + CurrentSession.CurrentUser.getPicurl().toString());
++
++                // PERMISSION
++                if(checkPermissionForReadExtertalStorage() == false) {
++                    try {
++                        requestPermissionForReadExtertalStorage();
++                    } catch (Exception e) {
++                        e.printStackTrace();
++                    }
++                }
++
++                Intent gallery = new Intent();
++                gallery.setType("image/*");
++                gallery.setAction(Intent.ACTION_GET_CONTENT);
++                // PICK_IMAGE = 1
++                startActivityForResult(Intent.createChooser(gallery, "Select Image"), 1);
++
++            }
+ 
+ 
++
++        });
+ 
+ 
+         edit.setOnClickListener(new View.OnClickListener() {
+@@ -70,9 +116,57 @@
+             }
+         });
+ 
++    }
++
++    @Override
++    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++
++        if(requestCode == 1 && resultCode == RESULT_OK){
++            Uri uri = data.getData();
++            String path = null;
++            if (Build.VERSION.SDK_INT < 11)
++                path = RealPathUtils.getRealPathFromURI_BelowAPI11(getApplicationContext(), uri);
++
++                // SDK >= 11 && SDK < 19
++            else if (Build.VERSION.SDK_INT < 19)
++                path = RealPathUtils.getRealPathFromURI_API11to18(getApplicationContext(), uri);
++
++                // SDK > 19 (Android 4.4)
++            else
++             path = RealPathUtils.getRealPathFromURI_API19(getApplicationContext(), uri);
++            Log.d("FILEPATHBRO", "File Path: " + uri + " PATH: " + path);
++            // Get the file instance
++
++//            Glide.with(getContext())
++//                    .load(APIclient.base_url + CurrentSession.CurrentUser.getPicurl())
++//    .into(image);
++            //CurrentSession.uploadProfilePicture(path, getApplicationContext());
++            ImagePath = path;
++            //ImageName = data.getData().
++        }
++
++    }
+ 
++    public boolean checkPermissionForReadExtertalStorage() {
++        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
++            int result = getApplicationContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
++            return result == PackageManager.PERMISSION_GRANTED;
++        }
++        return false;
++    }
+ 
++    public void requestPermissionForReadExtertalStorage() throws Exception {
++        try {
++            ActivityCompat.requestPermissions(this , new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
++                    READ_STORAGE_PERMISSION_REQUEST_CODE);
++        } catch (Exception e) {
++            e.printStackTrace();
++            throw e;
++        }
+     }
++
++
+ 
+     private void updateUser() {
+         full_name = findViewById(R.id.fullnameiput);
+@@ -82,50 +176,84 @@
+         profileimage= findViewById(R.id.profileimage);
+ 
+ 
+-
+-
+-
+         User user = new User();
+-        user.setUsername(CurrentSession.CurrentUser.getUsername());
++        user.setUsername(CurrentUser.getUsername());
+         user.setFullname(full_name.getText().toString());
+         user.setEmail(email.getText().toString());
+         user.setPassword(password.getText().toString());
++        user.setPhone(Integer.parseInt(phone.getText().toString()));
++
+         try{
+             user.setPhone((Integer.parseInt(phone.getText().toString())));
+         } catch(NumberFormatException ex){ // handle your exception
+             ex.printStackTrace();
+         }
+-        user.setProfileimage("/uploads/sponge_homer.jpg");
+ 
+-        // doing the call
+-        Call<User> edit = APIclient.apIinterface().editProfile(user);
+-        edit.enqueue(new Callback<User>() {
+-            @Override
+-            public void onResponse(Call<User> call, Response<User> response) {
+-                if (response.isSuccessful()) {
+-                    Log.d("edit", String.valueOf(response.body().getUsername()));
+-                    Toast.makeText(EditProfile.this, "Successfully Changed!", Toast.LENGTH_LONG).show();
+-                    Intent goProfile = new Intent(EditProfile.this, profile.class);
+-                    startActivity(goProfile);
+-                    CurrentSession.CurrentUser = response.body();
+-                } else {
+-                    Log.d("edit", "unsucc response");
+-                    errorText.setVisibility(View.VISIBLE);
+-                    try {
+-                        errorText.setText(response.errorBody().string());
+-                    } catch (IOException e) {
+-                        Log.d("edit", "failed to string errorBody()");
+-                        e.printStackTrace();
+-                    }
+-                }
+-            }
++        // handling upload image call
++        File image = new File(ImagePath);
++        RequestBody reqbody = RequestBody.create(MediaType.parse("multipart/form-data"),image);
++        MultipartBody.Part part = MultipartBody.Part.createFormData("profilepicture", image.getName() , reqbody);
++        // FIX PARAMETRE GET USERNAME
++        Call<String> uploadCall = APIclient.apIinterface().uploadProfilePicture(part);
++        uploadCall.enqueue(new Callback<String>() {
++            @Override
++            public void onResponse(Call<String> call, Response<String> response) {
++                if(response.isSuccessful()){
++                    Log.d("uploadImageNet", response.body());
++                    user.setProfileimage(response.body());
++
++                    // doing the call to hanlde update info
++                    Call<User> edit = APIclient.apIinterface().editProfile(user);
++                    edit.enqueue(new Callback<User>() {
++                        @Override
++                        public void onResponse(Call<User> call, Response<User> response) {
++                            if (response.isSuccessful()) {
++                                Log.d("edit", String.valueOf(response.body().getUsername()));
++                                Toast.makeText(EditProfile.this, "Successfully Changed!", Toast.LENGTH_LONG).show();
++                                Intent goProfile = new Intent(EditProfile.this, profile.class);
++                                startActivity(goProfile);
++                                CurrentUser = response.body();
++                            } else {
++                                Log.d("edit", "unsucc response");
++                                errorText.setVisibility(View.VISIBLE);
++                                try {
++                                    errorText.setText(response.errorBody().string());
++                                } catch (IOException e) {
++                                    Log.d("edit", "failed to string errorBody()");
++                                    e.printStackTrace();
++                                }
++                            }
++                        }
+ 
+-            @Override
+-            public void onFailure(Call<User> call, Throwable t) {
+-                Log.d("editNet", t.toString());
++                        @Override
++                        public void onFailure(Call<User> call, Throwable t) {
++                            Log.d("editNet", t.toString());
++                        }
++                    });
++/*                    Intent data = new Intent( ct, SearchResults.class);
++                    data.putExtra("data", response.body());
++                    ct.startActivity(data);*/
++                    // WE DONT NEED THE REQUEST RESPONSE
++                }else {
++                    Log.d("uploadImageNet", "unsuc");
++                }
++            }
++
++            @Override
++            public void onFailure(Call<String> call, Throwable t) {
++                Log.d("uploadImageNet", t.toString());
+             }
+         });
++
++        //user.setProfileimage(image.getName());
++
++        //Log.d("ffs", user.getProfileimage());
++
++
++ //here
+ 
+ 
+     }
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.drawerlayout.widget.DrawerLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:id=\"@+id/drawer_layout\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    tools:context=\".Profile.profile\"\r\n    tools:openDrawer=\"start\">\r\n\r\n\r\n    <com.google.android.material.navigation.NavigationView\r\n        android:id=\"@+id/nav_view\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_gravity=\"start\"\r\n        app:headerLayout=\"@layout/header\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:menu=\"@menu/sidemenu\" />\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n        <androidx.appcompat.widget.Toolbar\r\n            android:id=\"@+id/toolbar\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"#00008577\"\r\n            android:minHeight=\"?attr/actionBarSize\"\r\n            android:theme=\"?attr/actionBarTheme\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:navigationIcon=\"@drawable/ic_menugren\"\r\n            app:title=\"Profile\"/>\r\n\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout7\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"143dp\"\r\n            android:background=\"#BAD19F\"\r\n            android:elevation=\"5dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/toolbar\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/userimage\"\r\n                android:layout_width=\"100dp\"\r\n                android:layout_height=\"100dp\"\r\n                android:layout_gravity=\"center\"\r\n                android:layout_marginStart=\"20dp\"\r\n                android:layout_marginEnd=\"100dp\"\r\n                android:background=\"@drawable/salah\"></ImageView>\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_gravity=\"center\"\r\n                android:layout_marginEnd=\"10dp\"\r\n                android:orientation=\"vertical\"\r\n\r\n                >\r\n\r\n                <TextView\r\n                    android:id=\"@+id/Useruser\"\r\n                    android:layout_width=\"wrap_content\"\r\n\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:fontFamily=\"@font/poppinssemibold\"\r\n                    android:text=\"Username\"\r\n                    android:textColor=\"#363636\"\r\n                    android:textSize=\"26dp\"></TextView>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/rolerole\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:fontFamily=\"@font/poppinsmedium\"\r\n                    android:text=\"Role\"\r\n                    android:textColor=\"#363636\"\r\n                    android:textSize=\"16dp\"></TextView>\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView3\"\r\n            android:layout_width=\"482dp\"\r\n            android:layout_height=\"247dp\"\r\n            android:layout_marginBottom=\"4dp\"\r\n            android:background=\"@drawable/footer\"\r\n            app:layout_constraintBottom_toTopOf=\"@+id/linearLayout3\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.505\"\r\n            app:layout_constraintStart_toStartOf=\"parent\">\r\n\r\n        </ImageView>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout3\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"60dp\"\r\n            android:elevation=\"5dp\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\"\r\n            android:weightSum=\"1\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\">\r\n\r\n            <Button\r\n                android:id=\"@+id/home_profile\"\r\n                android:layout_width=\"24dp\"\r\n                android:layout_height=\"24dp\"\r\n                android:layout_marginStart=\"31dp\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:layout_marginBottom=\"20dp\"\r\n                android:layout_weight=\"0.25\"\r\n                android:background=\"@drawable/home\"\r\n                android:backgroundTint=\"#636363\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/fragment_container\">\r\n\r\n            </Button>\r\n\r\n            <Button\r\n                android:id=\"@+id/message_profile\"\r\n                android:layout_width=\"24dp\"\r\n                android:layout_height=\"24dp\"\r\n                android:layout_marginStart=\"80dp\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:layout_marginBottom=\"20dp\"\r\n                android:background=\"@drawable/message\"\r\n                android:backgroundTint=\"#636363\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/fragment_container\">\r\n\r\n            </Button>\r\n\r\n            <Button\r\n                android:id=\"@+id/notif_profile\"\r\n                android:layout_width=\"24dp\"\r\n                android:layout_height=\"24dp\"\r\n                android:layout_marginStart=\"80dp\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:layout_marginBottom=\"20dp\"\r\n\r\n                android:background=\"@drawable/notification\"\r\n                android:backgroundTint=\"#636363\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/fragment_container\">\r\n\r\n            </Button>\r\n\r\n            <Button\r\n                android:id=\"@+id/profil_profile\"\r\n                android:layout_width=\"25dp\"\r\n                android:layout_height=\"25dp\"\r\n                android:layout_marginStart=\"80dp\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:layout_marginEnd=\"32dp\"\r\n                android:layout_marginBottom=\"20dp\"\r\n                android:background=\"@drawable/user\"\r\n                android:backgroundTint=\"#619151\"\r\n                android:elevation=\"4dp\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/fragment_container\">\r\n\r\n            </Button>\r\n        </LinearLayout>\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView3\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"40dp\"\r\n            android:fontFamily=\"@font/poppinssemibold\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Information\"\r\n            android:textColor=\"#363636\"\r\n            android:textSize=\"20dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/linearLayout7\">\r\n\r\n        </TextView>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout8\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:layout_marginStart=\"85dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"1.0\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/textView3\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"20dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_gravity=\"center\"\r\n                android:background=\"@drawable/ic_profile\"\r\n                android:backgroundTint=\"@color/colorPrimary\"></ImageView>\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"10dp\"\r\n                android:fontFamily=\"@font/poppinssemibold\"\r\n                android:text=\"Fullname\"\r\n                android:textSize=\"15dp\">\r\n\r\n            </TextView>\r\n\r\n            <TextView\r\n                android:id=\"@+id/fullnamefullname\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:fontFamily=\"@font/poppinsmedium\"\r\n                android:paddingStart=\"20dp\"\r\n                android:text=\"Fullnamedata\"></TextView>\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout12\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"85dp\"\r\n            android:layout_marginTop=\"15dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/linearLayout8\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"20dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_gravity=\"center\"\r\n                android:background=\"@drawable/ic_email\"\r\n                android:backgroundTint=\"@color/colorPrimary\"></ImageView>\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"10dp\"\r\n                android:fontFamily=\"@font/poppinssemibold\"\r\n                android:text=\"Email\"\r\n\r\n                android:textSize=\"15dp\">\r\n\r\n            </TextView>\r\n\r\n            <TextView\r\n                android:id=\"@+id/emailemail\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:fontFamily=\"@font/poppinsmedium\"\r\n                android:paddingStart=\"50dp\"\r\n                android:text=\"Email\"></TextView>\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"85dp\"\r\n            android:layout_marginTop=\"15dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/linearLayout12\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"20dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_gravity=\"center\"\r\n                android:background=\"@drawable/ic_baseline_local_phone_24\"\r\n                android:backgroundTint=\"@color/colorPrimary\"></ImageView>\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"10dp\"\r\n                android:fontFamily=\"@font/poppinssemibold\"\r\n                android:text=\"Phone\"\r\n\r\n                android:textSize=\"15dp\">\r\n\r\n            </TextView>\r\n\r\n            <TextView\r\n                android:id=\"@+id/phonephone\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:fontFamily=\"@font/poppinsmedium\"\r\n                android:paddingStart=\"45dp\"\r\n                android:text=\"Phone\"></TextView>\r\n        </LinearLayout>\r\n\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n</androidx.drawerlayout.widget.DrawerLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/profile.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/res/layout/profile.xml	(date 1609583908393)
+@@ -51,8 +51,7 @@
+                 android:layout_height="100dp"
+                 android:layout_gravity="center"
+                 android:layout_marginStart="20dp"
+-                android:layout_marginEnd="100dp"
+-                android:background="@drawable/salah"></ImageView>
++                android:layout_marginEnd="100dp"></ImageView>
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+Index: app/src/main/res/layout/header.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"200dp\"\r\n    android:background=\"#BAD19F\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <ImageView\r\n        android:layout_width=\"75dp\"\r\n        android:layout_height=\"75dp\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:layout_marginTop=\"40dp\"\r\n        android:src=\"@drawable/salah\" />\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:text=\"@string/Zouhaier\"\r\n        android:textSize=\"24sp\"\r\n        app:fontFamily=\"@font/poppinssemibold\" />\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:text=\"role\"\r\n        android:textSize=\"18sp\"\r\n        app:fontFamily=\"@font/poppinsmedium\" />\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/header.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/res/layout/header.xml	(date 1609582271716)
+@@ -7,11 +7,11 @@
+     android:orientation="vertical">
+ 
+     <ImageView
++        android:id="@+id/headerimage"
+         android:layout_width="75dp"
+         android:layout_height="75dp"
+         android:layout_marginStart="20dp"
+-        android:layout_marginTop="40dp"
+-        android:src="@drawable/salah" />
++        android:layout_marginTop="40dp" />
+ 
+     <TextView
+         android:layout_width="wrap_content"
+Index: app/src/main/java/esprit/tn/farmily/feed/AddPost.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.feed;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RadioGroup;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport java.io.IOException;\r\n\r\nimport esprit.tn.farmily.LoginrRegister.User;\r\nimport esprit.tn.farmily.LoginrRegister.login;\r\nimport esprit.tn.farmily.LoginrRegister.signUp;\r\nimport esprit.tn.farmily.Networking.APIclient;\r\nimport esprit.tn.farmily.R;\r\nimport esprit.tn.farmily.models.Post;\r\nimport esprit.tn.farmily.utilities.CurrentSession;\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class AddPost extends AppCompatActivity {\r\n    EditText question ;\r\n    TextView Username,Role,errorText;\r\n    Button addbutton ;\r\n    RadioGroup radioGroup;\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.add_post);\r\n        Username = findViewById(R.id.User1);\r\n        Role = findViewById(R.id.Role_1);\r\n        addbutton = findViewById(R.id.newpost);\r\n        Role.setText(CurrentSession.CurrentUser.getRole());\r\n        Username.setText(CurrentSession.CurrentUser.getUsername());\r\n\r\n        addbutton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                addPost();\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    private void addPost() {\r\n\r\n        Username = findViewById(R.id.User1);\r\n        Role = findViewById(R.id.Role_1);\r\n        question =findViewById(R.id.add_quest);\r\n        radioGroup=findViewById(R.id.radiogr);\r\n        errorText = findViewById(R.id.textView5);\r\n\r\n        Post post = new Post();\r\n        post.setUser(Username.getText().toString());\r\n        post.setQuestion(question.getText().toString());\r\n\r\n        int chekedId = radioGroup.getCheckedRadioButtonId();\r\n        switch (chekedId) {\r\n            case R.id.radioButton2:\r\n                post.setTopic(\"Filed\");\r\n                break;\r\n            case R.id.radioButton3:\r\n                post.setTopic(\"Animals\");\r\n                break;\r\n        }\r\n\r\n        Call<Post> add = APIclient.apIinterface().addpost(post);\r\n        add.enqueue(new Callback<Post>() {\r\n            @Override\r\n            public void onResponse(Call<Post> call, Response<Post> response) {\r\n                if (response.isSuccessful()) {\r\n                    Log.d(\"RegisterNet\", String.valueOf(response.code()));\r\n                    Toast.makeText(AddPost.this, \"New post Added\", Toast.LENGTH_LONG).show();\r\n                    Intent addnew = new Intent(AddPost.this, feed.class);\r\n                    startActivity(addnew);\r\n                } else {\r\n                    Log.d(\"RegisterNet\", \"unsucc response\");\r\n                    errorText.setVisibility(View.VISIBLE);\r\n                    try {\r\n                        errorText.setText(response.errorBody().string());\r\n                    } catch (IOException e) {\r\n                        Log.d(\"RegisterNet\", \"failed to string errorBody()\");\r\n                        e.printStackTrace();\r\n                    }\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<Post> call, Throwable t) {\r\n                Log.d(\"RegisterNet\", t.toString());\r\n            }\r\n        });\r\n\r\n\r\n\r\n\r\n\r\n    }\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/feed/AddPost.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/feed/AddPost.java	(date 1609261352493)
+@@ -8,16 +8,12 @@
+ import android.view.View;
+ import android.widget.Button;
+ import android.widget.EditText;
+-import android.widget.RadioButton;
+ import android.widget.RadioGroup;
+ import android.widget.TextView;
+ import android.widget.Toast;
+ 
+ import java.io.IOException;
+ 
+-import esprit.tn.farmily.LoginrRegister.User;
+-import esprit.tn.farmily.LoginrRegister.login;
+-import esprit.tn.farmily.LoginrRegister.signUp;
+ import esprit.tn.farmily.Networking.APIclient;
+ import esprit.tn.farmily.R;
+ import esprit.tn.farmily.models.Post;
+Index: app/src/androidTest/java/esprit/tn/farmily/ExampleInstrumentedTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily;\r\n\r\nimport android.content.Context;\r\n\r\nimport androidx.test.platform.app.InstrumentationRegistry;\r\nimport androidx.test.ext.junit.runners.AndroidJUnit4;\r\n\r\nimport org.junit.Test;\r\nimport org.junit.runner.RunWith;\r\n\r\nimport static org.junit.Assert.*;\r\n\r\n/**\r\n * Instrumented test, which will execute on an Android device.\r\n *\r\n * @see <a href=\"http://d.android.com/tools/testing\">Testing documentation</a>\r\n */\r\n@RunWith(AndroidJUnit4.class)\r\npublic class ExampleInstrumentedTest {\r\n    @Test\r\n    public void useAppContext() {\r\n        // Context of the app under test.\r\n        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();\r\n        assertEquals(\"esprit.tn.farmily\", appContext.getPackageName());\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/java/esprit/tn/farmily/ExampleInstrumentedTest.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/androidTest/java/esprit/tn/farmily/ExampleInstrumentedTest.java	(date 1609261222716)
+@@ -16,7 +16,8 @@
+  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+  */
+ @RunWith(AndroidJUnit4.class)
+-public class ExampleInstrumentedTest {
++public class
++ExampleInstrumentedTest {
+     @Test
+     public void useAppContext() {
+         // Context of the app under test.
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ .idea/gradle.xml	(date 1609261262104)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/java/esprit/tn/farmily/feed/MyPostAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.feed;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport java.util.List;\r\n\r\nimport esprit.tn.farmily.R;\r\nimport esprit.tn.farmily.LoginrRegister.User;\r\nimport esprit.tn.farmily.models.Post;\r\nimport retrofit2.http.POST;\r\n\r\npublic class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder>  {\r\n    private  OnItemClickListener mListener ;\r\n\r\n\r\n    public interface  OnItemClickListener {\r\n        void OnItemClick(int position);\r\n    }\r\n\r\n    public void setOnItemClickListener(OnItemClickListener Listener){\r\n        mListener = Listener;\r\n    }\r\n\r\n    public static List<Post> postdata;\r\n    public Context context ;\r\n    public MyPostAdapter(Context context , List<Post> data) {\r\n        this.context = context;\r\n        this.postdata = data;\r\n\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        LayoutInflater inflater = LayoutInflater.from(context);\r\n        View view = inflater.inflate(R.layout.postscards, parent, false);\r\n        return new ViewHolder(view);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {\r\n\r\n\r\n\r\n        holder.textViewname.setText(postdata.get(position).getUser());\r\n        holder.textViewrole.setText(postdata.get(position).getTopic());\r\n        //holder.profilepic.setImageResource(postUser.getProfileimage());\r\n        holder.textViewpost.setText(postdata.get(position).getQuestion());\r\n        holder.itemView.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(view.getContext(), Comment.class);\r\n                context.startActivity(intent);\r\n            }\r\n        });\r\n\r\n\r\n\r\n\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return postdata.size() ;\r\n    }\r\n\r\n    public class ViewHolder extends RecyclerView.ViewHolder {\r\n        ImageView profilepic;\r\n        TextView  textViewname;\r\n        TextView  textViewrole;\r\n        TextView  textViewpost;\r\n        Button  comment ;\r\n        // ImageView comments;\r\n\r\n        public ViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            context = itemView.getContext();\r\n            profilepic = itemView.findViewById(R.id.profilepic);\r\n            textViewname = itemView.findViewById(R.id.userpost);\r\n            textViewrole= itemView.findViewById(R.id.topic);\r\n            textViewpost= itemView.findViewById(R.id.Question);\r\n            comment= itemView.findViewById((R.id.commentsButton));\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        }\r\n\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/feed/MyPostAdapter.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/feed/MyPostAdapter.java	(date 1609261352528)
+@@ -8,7 +8,6 @@
+ import android.widget.Button;
+ import android.widget.ImageView;
+ import android.widget.TextView;
+-import android.widget.Toast;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
+@@ -16,9 +15,7 @@
+ import java.util.List;
+ 
+ import esprit.tn.farmily.R;
+-import esprit.tn.farmily.LoginrRegister.User;
+ import esprit.tn.farmily.models.Post;
+-import retrofit2.http.POST;
+ 
+ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder>  {
+     private  OnItemClickListener mListener ;
+Index: app/src/main/res/layout/edit_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/email\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Profile.EditProfile\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/profileimage\"\r\n        android:layout_width=\"219dp\"\r\n        android:layout_height=\"187dp\"\r\n        android:layout_marginTop=\"40dp\"\r\n        android:layout_marginBottom=\"294dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintVertical_bias=\"0.0\"\r\n        app:srcCompat=\"@drawable/profile\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/button\"\r\n        android:layout_width=\"120dp\"\r\n        android:layout_height=\"30dp\"\r\n        android:layout_marginTop=\"156dp\"\r\n        android:background=\"@drawable/login_butn\"\r\n        android:elevation=\"4dp\"\r\n        android:fontFamily=\"@font/poppinssemibold\"\r\n        android:text=\"New Image\"\r\n        android:textColor=\"#fff\"\r\n        android:textSize=\"12dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.498\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/profileimage\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/usernamecontent\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"164dp\"\r\n        android:layout_marginEnd=\"65dp\"\r\n        android:text=\"username\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/profileimage\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/confirm\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"></TextView>\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/linearLayout11\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:layout_marginTop=\"60dp\"\r\n        android:layout_marginEnd=\"20dp\"\r\n        android:orientation=\"vertical\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/profileimage\">\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout9\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"1dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView7\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Full Name\" />\r\n\r\n            <EditText\r\n                android:id=\"@+id/fullnameiput\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n            </EditText>\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout6\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"1dp\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView4\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Email\" />\r\n\r\n            <EditText\r\n                android:id=\"@+id/Emailinput\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n            </EditText>\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout10\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"1dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView9\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Password\" />\r\n\r\n           <EditText\r\n               android:id=\"@+id/passwordinput\"\r\n               android:layout_width=\"match_parent\"\r\n               android:layout_height=\"wrap_content\"></EditText>\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/linearLayout15\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"1dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/textView15\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Phone\" />\r\n\r\n            <EditText\r\n                android:id=\"@+id/phoneinput\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n            </EditText>\r\n\r\n        </LinearLayout>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <Button\r\n        android:id=\"@+id/button2\"\r\n        android:layout_width=\"30dp\"\r\n        android:layout_height=\"30dp\"\r\n        android:layout_marginTop=\"40dp\"\r\n        android:background=\"@drawable/ic_back\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/profileimage\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.052\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintVertical_bias=\"0.0\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/confirm\"\r\n        android:layout_width=\"100dp\"\r\n        android:layout_height=\"30dp\"\r\n        android:background=\"@drawable/login_butn\"\r\n        android:text=\"confirm\"\r\n        android:textColor=\"#fff\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"1.0\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/edit_profile.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/res/layout/edit_profile.xml	(date 1609262870698)
+@@ -21,7 +21,7 @@
+         app:srcCompat="@drawable/profile" />
+ 
+     <Button
+-        android:id="@+id/button"
++        android:id="@+id/uploadimage"
+         android:layout_width="120dp"
+         android:layout_height="30dp"
+         android:layout_marginTop="156dp"
+Index: app/src/main/java/esprit/tn/farmily/utilities/CurrentSession.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.utilities;\r\n\r\nimport esprit.tn.farmily.LoginrRegister.User;\r\n\r\npublic class CurrentSession {\r\n\r\n    public static User CurrentUser = new User();\r\n    public static String Token;\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/utilities/CurrentSession.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/utilities/CurrentSession.java	(date 1609277218225)
+@@ -8,4 +8,5 @@
+     public static String Token;
+ 
+ 
++
+ }
+Index: app/src/main/java/esprit/tn/farmily/models/Post.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/models/Post.java	(date 1609261352513)
++++ app/src/main/java/esprit/tn/farmily/models/Post.java	(date 1609261352513)
+@@ -0,0 +1,62 @@
++package esprit.tn.farmily.models;
++
++import com.google.gson.annotations.Expose;
++import com.google.gson.annotations.SerializedName;
++
++public class Post {
++    @SerializedName("_id")
++    @Expose
++    private String id;
++    @SerializedName("question")
++    @Expose
++    private String question;
++    @SerializedName("user")
++    @Expose
++    private String user;
++    @SerializedName("topic")
++    @Expose
++    private String topic;
++    @SerializedName("__v")
++    @Expose
++    private Integer v;
++
++    public String getId() {
++        return id;
++    }
++
++    public void setId(String id) {
++        this.id = id;
++    }
++
++    public String getQuestion() {
++        return question;
++    }
++
++    public void setQuestion(String question) {
++        this.question = question;
++    }
++
++    public String getUser() {
++        return user;
++    }
++
++    public void setUser(String user) {
++        this.user = user;
++    }
++
++    public String getTopic() {
++        return topic;
++    }
++
++    public void setTopic(String topic) {
++        this.topic = topic;
++    }
++
++    public Integer getV() {
++        return v;
++    }
++
++    public void setV(Integer v) {
++        this.v = v;
++    }
++}
+Index: app/src/main/java/esprit/tn/farmily/feed/feed.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package esprit.tn.farmily.feed;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport esprit.tn.farmily.Networking.APIclient;\r\nimport esprit.tn.farmily.R;\r\nimport esprit.tn.farmily.messages.messages;\r\nimport esprit.tn.farmily.models.Post;\r\nimport esprit.tn.farmily.notification.notification;\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class feed extends AppCompatActivity {\r\n\r\n\r\n    TextView question,userpost,topic;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.feed);\r\n\r\n        RecyclerView recyclerView =findViewById(R.id.recyclerView);\r\n\r\n\r\n\r\n        Call<List<Post>> showpostsCall = APIclient.apIinterface().getallPosts();\r\n        showpostsCall.enqueue(new Callback<List<Post>>() {\r\n            @Override\r\n            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {\r\n                if(!response.isSuccessful()){Log.d(\"FeedNet\" ,toString());}\r\n\r\n                    Log.d(\"feednet\", response.body().get(0).getQuestion());\r\n\r\n                    MyPostAdapter myAdapter = new MyPostAdapter(getApplicationContext(), response.body());\r\n                    recyclerView.setAdapter(myAdapter);\r\n                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);\r\n                    layoutManager.setStackFromEnd(true);\r\n                    recyclerView.setLayoutManager(layoutManager);\r\n                    recyclerView.scrollToPosition(0);\r\n\r\n\r\n\r\n                }\r\n                //Log.d(\"dfdfdfdf\",posts.toString());\r\n\r\n\r\n\r\n            @Override\r\n            public void onFailure(Call<List<Post>> call, Throwable t) {\r\n                Log.d(\"FeedNet\" , t.toString());\r\n            }\r\n        });\r\n\r\n        Button addpost = (Button) findViewById(R.id.add_post);\r\n        addpost.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent post = new Intent(getApplicationContext(), esprit.tn.farmily.feed.AddPost.class);\r\n                startActivity(post);\r\n                overridePendingTransition(0,0);\r\n                post.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n// bottembar navigation\r\n\r\n\r\n        Button profile = (Button) findViewById(R.id.profil_feed);\r\n        profile.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);\r\n                startActivity(proint);\r\n                overridePendingTransition(0,0);\r\n                proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n\r\n            }\r\n        });\r\n        Button message = (Button) findViewById(R.id.message_feed);\r\n        message.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent message = new Intent(getApplicationContext(), messages.class);\r\n                startActivity(message);\r\n                overridePendingTransition(0,0);\r\n                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n\r\n            }\r\n        });\r\n        Button notif = (Button) findViewById(R.id.notif_feed);\r\n        notif.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n\r\n                Intent notif= new Intent(getApplicationContext(), notification.class);\r\n                startActivity(notif);\r\n                overridePendingTransition(0, 0);\r\n                notif.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);\r\n                finish();\r\n            }\r\n        });\r\n\r\n\r\n\r\n    }\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/esprit/tn/farmily/feed/feed.java	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/java/esprit/tn/farmily/feed/feed.java	(date 1609261352502)
+@@ -11,7 +11,6 @@
+ import android.widget.Button;
+ import android.widget.TextView;
+ 
+-import java.util.ArrayList;
+ import java.util.List;
+ 
+ import esprit.tn.farmily.Networking.APIclient;
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.2\"\r\n\r\n    defaultConfig {\r\n        applicationId \"esprit.tn.farmily\"\r\n        minSdkVersion 24\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n\r\n        compileOptions {\r\n            sourceCompatibility JavaVersion.VERSION_1_8\r\n            targetCompatibility JavaVersion.VERSION_1_8\r\n        }\r\n\r\n\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n\r\n    implementation \"androidx.fragment:fragment:1.3.0-beta02\"\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'\r\n    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'\r\n    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'\r\n    implementation 'com.rengwuxian.materialedittext:library:2.1.4'\r\n    implementation \"androidx.drawerlayout:drawerlayout:1.0.0\"\r\n\r\n    implementation 'com.google.android.material:material:1.3.0-alpha04'\r\n    implementation 'androidx.cardview:cardview:1.0.0'\r\n    implementation 'com.google.android.material:material:1.1.0'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'androidx.navigation:navigation-fragment:2.3.2'\r\n    implementation 'androidx.navigation:navigation-ui:2.3.2'\r\n    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'\r\n    implementation 'androidx.mediarouter:mediarouter:1.2.0'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n    //noinspection GradleCompatible\r\n    implementation 'com.android.support:appcompat-v7:26.1.0'\r\n    //noinspection GradleCompatible\r\n    implementation 'com.android.support:design:28.0.0'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n    implementation fileTree(include: ['*.jar'], dir: 'libs')\r\n    implementation 'com.android.support.constraint:constraint-layout:1.1.3'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'com.android.support.test:runner:1.0.2'\r\n    implementation \"androidx.cardview:cardview:1.0.0\"\r\n    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'\r\n    implementation 'com.android.volley:volley:1.1.0'\r\n\r\n    // retro deps\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/build.gradle	(date 1609525257633)
+@@ -6,7 +6,7 @@
+ 
+     defaultConfig {
+         applicationId "esprit.tn.farmily"
+-        minSdkVersion 24
++        minSdkVersion 22
+         targetSdkVersion 30
+         versionCode 1
+         versionName "1.0"
+@@ -69,6 +69,11 @@
+     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
++    implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
++
++    implementation 'com.github.bumptech.glide:glide:4.11.0'
++    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
++
+ 
+ 
+ }
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"esprit.tn.farmily\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.CAMERA\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\"\r\n        android:usesCleartextTraffic=\"true\">\r\n        <activity android:name=\".feed.Comment\"></activity>\r\n        <activity android:name=\".feed.AddPost\" />\r\n        <activity android:name=\".Profile.profile\" />\r\n        <activity android:name=\".Profile.EditProfile\" />\r\n        <activity android:name=\".Profile.showfileds\" />\r\n        <activity android:name=\".notification.notification\" />\r\n        <activity android:name=\".messages.messages\" />\r\n        <activity android:name=\".Profile.profile2\" />\r\n        <activity android:name=\".feed.feed\" />\r\n        <activity android:name=\".LoginrRegister.signUp\" />\r\n        <activity android:name=\".onbording.getStarted\" />\r\n        <activity android:name=\".LoginrRegister.login\" />\r\n        <activity android:name=\".onbording.onboarding_three\" />\r\n        <activity android:name=\".onbording.onboarding_two\" />\r\n        <activity android:name=\".onbording.onboarding_one\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/AndroidManifest.xml	(date 1609283560985)
+@@ -5,8 +5,8 @@
+ 
+     <uses-permission android:name="android.permission.INTERNET" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.CAMERA" />
+ 
+     <application
+Index: app/src/main/res/layout/postscards.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:orientation=\"vertical\"\r\n    android:layout_height=\"wrap_content\">\r\n\r\n    <androidx.cardview.widget.CardView\r\n        app:cardElevation=\"10dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        android:layout_margin=\"5dp\"\r\n        app:cardBackgroundColor=\"#FFFFFF\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\">\r\n          <LinearLayout\r\n            android:orientation=\"horizontal\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\">\r\n\r\n            <ImageView\r\n                android:layout_margin=\"10dp\"\r\n                android:src=\"@drawable/hamed\"\r\n                android:id=\"@+id/profilepic\"\r\n                android:layout_width=\"80dp\"\r\n                android:layout_height=\"80dp\"/>\r\n\r\n            <LinearLayout\r\n                android:layout_weight=\"1\"\r\n                android:gravity=\"center\"\r\n                android:orientation=\"vertical\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/userpost\"\r\n                    android:textColor=\"#000\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textSize=\"25sp\"\r\n                    android:layout_marginTop=\"0dp\"\r\n                    android:paddingStart=\"5dp\"\r\n                    android:text=\"Movie Name\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/topic\"\r\n                    android:layout_marginTop=\"2dp\"\r\n                    android:paddingStart=\"5dp\"\r\n                    android:text=\"Movie Date\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"/>\r\n\r\n            </LinearLayout>\r\n\r\n           </LinearLayout>\r\n           <LinearLayout\r\n               android:layout_width=\"match_parent\"\r\n               android:layout_height=\"wrap_content\"\r\n               android:orientation=\"vertical\"\r\n               >\r\n\r\n               <TextView\r\n                   android:id=\"@+id/Question\"\r\n                   android:layout_width=\"match_parent\"\r\n                   android:layout_height=\"wrap_content\"\r\n                   android:layout_marginStart=\"12dp\"\r\n                   android:layout_marginTop=\"5dp\"\r\n                   android:layout_marginEnd=\"12dp\"\r\n                   android:layout_marginBottom=\"8dp\"\r\n                   android:fontFamily=\"@font/poppinssemibold\"\r\n                   android:text=\"bellehy chkoun 3andou fekra ? el zenbe3 win yetbe3\"\r\n                   android:textSize=\"16dp\">\r\n\r\n               </TextView>\r\n               <LinearLayout\r\n                   android:layout_width=\"match_parent\"\r\n                   android:layout_height=\"wrap_content\"\r\n                   android:orientation=\"horizontal\"\r\n                   android:layout_marginStart=\"12dp\"\r\n                   android:layout_marginBottom=\"12dp\"\r\n                   android:layout_marginEnd=\"12dp\">\r\n                   <ImageView\r\n                       android:layout_width=\"24dp\"\r\n                       android:layout_height=\"24dp\"\r\n                       android:background=\"@drawable/up\"\r\n                       android:backgroundTint=\"#363636\"\r\n                       >\r\n\r\n                   </ImageView>\r\n                   <TextView\r\n                       android:layout_width=\"wrap_content\"\r\n                       android:layout_height=\"wrap_content\"\r\n                       android:text=\"5\"\r\n                       android:fontFamily=\"@font/poppinssemibold\"\r\n                       android:textSize=\"20dp\"\r\n                       android:layout_marginStart=\"5dp\"\r\n                       ></TextView>\r\n                   <ImageView\r\n                       android:layout_width=\"24dp\"\r\n                       android:layout_height=\"24dp\"\r\n                       android:layout_marginStart=\"10dp\"\r\n                       android:background=\"@drawable/down\"\r\n                       android:backgroundTint=\"#363636\"\r\n                       >\r\n\r\n                   </ImageView>\r\n                   <TextView\r\n                       android:layout_width=\"wrap_content\"\r\n                       android:layout_height=\"wrap_content\"\r\n                       android:text=\"2\"\r\n                       android:fontFamily=\"@font/poppinssemibold\"\r\n                       android:textSize=\"20dp\"\r\n                       android:layout_marginStart=\"5dp\"\r\n                       ></TextView>\r\n\r\n                   <Button\r\n                       android:id=\"@+id/commentsButton\"\r\n                       android:layout_width=\"24dp\"\r\n                       android:layout_height=\"24dp\"\r\n                       android:layout_marginStart=\"210dp\"\r\n                       android:layout_marginTop=\"0dp\"\r\n                       android:background=\"@drawable/comment\"\r\n                       android:backgroundTint=\"#363636\">\r\n\r\n                   </Button>\r\n\r\n                   <TextView\r\n                       android:layout_width=\"wrap_content\"\r\n                       android:layout_height=\"wrap_content\"\r\n                       android:text=\"2\"\r\n                       android:fontFamily=\"@font/poppinssemibold\"\r\n                       android:textSize=\"20dp\"\r\n                       android:layout_marginStart=\"5dp\"\r\n\r\n                       />\r\n\r\n\r\n               </LinearLayout>\r\n           </LinearLayout>\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/postscards.xml	(revision 44f4ebf7ad3bc563a7cbe78608c4ab13c4d31f5b)
++++ app/src/main/res/layout/postscards.xml	(date 1609261262088)
+@@ -42,7 +42,7 @@
+                     android:textSize="25sp"
+                     android:layout_marginTop="0dp"
+                     android:paddingStart="5dp"
+-                    android:text="Movie Name"
++                    android:text="Username"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"/>
+ 
+@@ -72,7 +72,7 @@
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/poppinssemibold"
+-                   android:text="bellehy chkoun 3andou fekra ? el zenbe3 win yetbe3"
++                   android:text=""
+                    android:textSize="16dp">
+ 
+                </TextView>
