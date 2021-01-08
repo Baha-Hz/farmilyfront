@@ -1,11 +1,13 @@
 package esprit.tn.farmily.Profile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +17,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.login;
+import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
@@ -34,6 +39,7 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
     TextView textView;
 
     TextView phone,username,fullname,role,email;
+    ImageView profileimage,headerimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,8 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
         username = findViewById(R.id.Useruser);
         fullname = findViewById(R.id.fullnamefullname);
         email = findViewById(R.id.emailemail);
+        profileimage= findViewById(R.id.userimage);
+        Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(profileimage);
 
         phone.setText(CurrentSession.CurrentUser.getPhone().toString());
         role.setText(CurrentSession.CurrentUser.getRole());
@@ -59,7 +67,9 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
         txtProfileName.setText(CurrentSession.CurrentUser.getUsername());
         TextView txtRole = (TextView) navigationView.getHeaderView(0).findViewById(R.id.HeaderRole);
         txtRole.setText(CurrentSession.CurrentUser.getRole());
-
+        headerimage=findViewById(R.id.headerimage);
+        @SuppressLint("WrongViewCast") CircleImageView headerimage = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.headerimage);
+        Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(headerimage);
         navigationView=findViewById(R.id.nav_view2);
         textView=findViewById(R.id.textView);
         toolbar=findViewById(R.id.toolbar);
