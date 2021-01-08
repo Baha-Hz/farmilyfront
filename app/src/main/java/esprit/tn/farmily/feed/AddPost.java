@@ -46,7 +46,12 @@ public class AddPost extends AppCompatActivity {
         userimage = findViewById(R.id.userimage);
         addbutton = findViewById(R.id.newpost);
         Role.setText(CurrentSession.CurrentUser.getRole());
+
         Username.setText(CurrentSession.CurrentUser.getUsername());
+        Glide.with(getApplicationContext())
+                .load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage())
+                .into(userimage);
+
         Glide.with(getApplicationContext()).load(APIclient.base_url+CurrentSession.CurrentUser.getProfileimage()).into(userimage);
 
         addbutton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +74,7 @@ public class AddPost extends AppCompatActivity {
         Post post = new Post();
         post.setUser(Username.getText().toString());
         post.setQuestion(question.getText().toString());
-
+        post.setProfileimage(CurrentSession.CurrentUser.getProfileimage());
         int chekedId = radioGroup.getCheckedRadioButtonId();
         switch (chekedId) {
             case R.id.radioButton2:

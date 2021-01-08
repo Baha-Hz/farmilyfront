@@ -21,6 +21,18 @@ public class Post {
     @SerializedName("topic")
     @Expose
     private String topic;
+    @SerializedName("profileimage")
+    @Expose
+    private String profileimage;
+
+    public String getProfileimage() {
+        return profileimage;
+    }
+
+    public void setProfileimage(String profileimage) {
+        this.profileimage = profileimage;
+    }
+
     @SerializedName("date")
     @Expose
     private String date;

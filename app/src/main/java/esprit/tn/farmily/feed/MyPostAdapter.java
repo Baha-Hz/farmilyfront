@@ -12,10 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.models.Post;
+import esprit.tn.farmily.utilities.CurrentSession;
 
 public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder>  {
 
@@ -45,7 +49,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         holder.textViewname.setText(postdata.get(position).getUser());
         holder.textViewrole.setText(postdata.get(position).getTopic());
         String id = postdata.get(position).getId();
-        //holder.profilepic.setImageResource(postUser.getProfileimage());
+        Glide.with(context).load(APIclient.base_url+ postdata.get(position).getProfileimage()).into(holder.profilepic);
         holder.textViewpost.setText(postdata.get(position).getQuestion());
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
