@@ -19,9 +19,9 @@ import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
 
 public class pendingAdapter extends RecyclerView.Adapter<pendingAdapter.ViewHolder> {
+
     public static List<Hire> engdata;
     public Context context;
-
     public pendingAdapter(Context context, List<Hire> data) {
         this.context = context;
         this.engdata = data;

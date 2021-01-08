@@ -1,48 +1,43 @@
 package esprit.tn.farmily.Profile;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
 import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.feed.CommentAdapter;
-import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
 import esprit.tn.farmily.utilities.CurrentSession;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Myengineer extends AppCompatActivity {
-    TextView usename,current;
+public class HIre_req extends AppCompatActivity {
+    TextView current;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.myengineer);
+        setContentView(R.layout.activity_h_ire_req);
 
 
-        usename = findViewById(R.id.EMP);
+
         current = findViewById(R.id.employer23);
 
         current.setText(CurrentSession.CurrentUser.getUsername());
-        String employer = current.getText().toString();
+        String employee = current.getText().toString();
 
-        RecyclerView recyclerView =findViewById(R.id.recyclerView9);
+
+        RecyclerView recyclerView =findViewById(R.id.recyclerView12);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        Call<List<Hire>> showEng = APIclient.apIinterface().Pending (employer);
+        Call<List<Hire>> showEng = APIclient.apIinterface().EngPending(employee);
         showEng.enqueue(new Callback<List<Hire>>() {
             @Override
             public void onResponse(Call<List<Hire>> call, Response<List<Hire>> response) {
@@ -50,12 +45,13 @@ public class Myengineer extends AppCompatActivity {
                     return;
                 }
 
-                pendingAdapter myAdapter = new pendingAdapter(getApplicationContext(), response.body());
+                reqaddpterAdapter myAdapter = new reqaddpterAdapter(getApplicationContext(), response.body());
                 recyclerView.setAdapter(myAdapter);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                 layoutManager.setStackFromEnd(true);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.scrollToPosition(0);
+                myAdapter.notifyDataSetChanged();
 
 
 
