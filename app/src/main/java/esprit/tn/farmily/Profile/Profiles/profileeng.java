@@ -3,6 +3,7 @@ package esprit.tn.farmily.Profile.Profiles;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.LoginrRegister.login;
 import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.Profile.EditProfile;
@@ -31,6 +33,9 @@ import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
 import esprit.tn.farmily.notification.notification;
 import esprit.tn.farmily.utilities.CurrentSession;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class profileeng extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -104,19 +109,7 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
                 finish();
             }
         });
-        Button message = (Button) findViewById(R.id.message_profile);
-        message.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-                Intent message= new Intent(getApplicationContext(), messages.class);
-                startActivity(message);
-                overridePendingTransition(0, 0);
-                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-            }
-        });
         Button notif = (Button) findViewById(R.id.notif_profile);
         notif.setOnClickListener(new View.OnClickListener() {
 
@@ -156,10 +149,6 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
                 Intent intent = new Intent(profileeng.this, EditProfile.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_fileds:
-                Intent fileds = new Intent(profileeng.this, showfileds.class);
-                startActivity(fileds);
-                break;
             case R.id.nav_Logout:
                 Intent houni = new Intent(profileeng.this, login.class);
                 startActivity(houni);
@@ -167,6 +156,29 @@ public class profileeng extends AppCompatActivity implements NavigationView.OnNa
             case R.id.nav_hire_request:
                 Intent show = new Intent(profileeng.this , HIre_req.class);
                 startActivity(show);
+                break;
+            case R.id.nav_remove:
+                Call<User> add = APIclient.apIinterface().remove(CurrentSession.CurrentUser.getUsername().toString());
+                add.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<esprit.tn.farmily.LoginrRegister.User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            Intent again = new Intent(profileeng.this , login.class);
+                            startActivity(again);
+                            finish();
+
+                        } else {
+                            Log.d("RegisterNet", "unsucc response");
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d("RegisterNet", t.toString());
+                    }
+                });
                 break;
 
 

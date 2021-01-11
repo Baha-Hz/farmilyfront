@@ -7,6 +7,10 @@
     android:background="@drawable/login"
     tools:context=".onbording.getStarted">
 
+
+
+
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -29,9 +33,8 @@
         android:layout_width="90dp"
         android:layout_height="35dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
         android:layout_marginEnd="75dp"
-        android:layout_marginBottom="360dp"
+        android:layout_marginBottom="325dp"
         android:background="@drawable/login_butn"
         android:fontFamily="@font/poppinsbold"
         android:text="login"
@@ -39,16 +42,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonsignup"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/buttonsignup" />
 
     <Button
         android:id="@+id/buttonsignup"
         android:layout_width="90dp"
         android:layout_height="35dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="360dp"
+        android:layout_marginBottom="325dp"
         android:background="@drawable/login_butn"
         android:fontFamily="@font/poppinsbold"
         android:text="sign up"
@@ -56,8 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -75,11 +75,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="-133dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

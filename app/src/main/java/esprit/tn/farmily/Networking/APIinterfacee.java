@@ -52,6 +52,9 @@ public interface APIinterfacee {
     Call<Location> loacate (@Path("Addresstxt") String Addresstxt);
 
 
+    @POST("api/user/removeaccount/{username}")
+    Call<User> remove (@Path("username") String username);
+
     @POST("api/field/deletefield/{id}")
     Call<Filedsmodel> delete (@Path("id") String id);
 

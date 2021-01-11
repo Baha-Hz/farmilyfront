@@ -2,6 +2,7 @@ package esprit.tn.farmily.LoginrRegister;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +33,11 @@ public class login extends AppCompatActivity {
     TextView signbutton;
     TextView loginError;
 
-
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String myName = "nameKey";
+    public static final String pwd = "pwd";
+    public static final String Email = "emailKey";
+    SharedPreferences sharedpreferences;
 
 
     @Override
@@ -40,6 +45,7 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         //Initializing Views
         loginbutton = findViewById(R.id.toProfile);
         signbutton = findViewById(R.id.signUpText);
@@ -59,6 +65,7 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(login.this, signUp.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -87,12 +94,14 @@ public class login extends AppCompatActivity {
                     assert response.body() != null;
                     loginError.setVisibility(View.INVISIBLE);
 
+
                     CurrentSession.CurrentUser = response.body();
                     Log.d("testCurrentUser","this is from currenuser: " +  CurrentSession.CurrentUser.getUsername());
 
 
                     Intent goMainNavAct = new Intent(login.this, feed.class);
                     startActivity(goMainNavAct);
+                    finish();
 
                 } else {
                     Log.d("loginNetF", "unsucc request");

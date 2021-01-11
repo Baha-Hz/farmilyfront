@@ -2,10 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
-        <item
-            android:id="@+id/nav_fileds"
-            android:icon="@drawable/ic_field"
-            android:title="My Fields" />
+
 
         <item
             android:id="@+id/nav_hire_request"
@@ -26,10 +23,6 @@
                     android:icon="@drawable/ic_profile"
                     android:title="Edit Profile" />
 
-                <item
-                    android:id="@+id/nav_questions"
-                    android:icon="@drawable/ic_q"
-                    android:title="My questions " />
 
             </group>
         </menu>

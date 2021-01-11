@@ -168,44 +168,7 @@ public class AddFields extends AppCompatActivity implements View.OnClickListener
 
 
         // search
-        searchnow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String address = searchtext.getText().toString();
-
-
-
-
-
-               /* Call<Location> add = APIclient.apIinterface().loacate(searchtext.getText().toString());
-                add.enqueue(new Callback<Location>() {
-                    @Override
-                    public void onResponse(Call<Location> call, Response<Location> response) {
-                        if (response.isSuccessful()) {
-
-                            coordinates.add(response.body().getCoordinates());
-                            cor = coordinates.get(0);
-                            lang = cor.get(0);
-                            lat= cor.get(1);
-
-
-
-                        } else {
-                            Log.d("RegisterNet", "unsucc response");
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Location> call, Throwable t) {
-                        Log.d("RegisterNet", t.toString());
-                    }
-                });*/
-
-            }
-        });
 
 
         mapView = (MapView) findViewById(R.id.mapView);

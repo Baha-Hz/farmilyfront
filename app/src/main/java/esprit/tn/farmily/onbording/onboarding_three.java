@@ -21,6 +21,7 @@ public class onboarding_three extends AppCompatActivity {
             public void onClick(View v) {
                 Intent startIntent1 = new Intent(getApplicationContext(), onboarding_two.class);
                 startActivity(startIntent1);
+                finish();
             }
         });
         Button start4 = (Button)findViewById(R.id.button3_1);
@@ -31,6 +32,7 @@ public class onboarding_three extends AppCompatActivity {
                 startActivity(startIntent2);
                 overridePendingTransition(0,0);
                 startIntent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
                
             }
         });
@@ -42,6 +44,7 @@ public class onboarding_three extends AppCompatActivity {
                 startActivity(welcome);
                 overridePendingTransition(0,0);
                 welcome.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
                 
             }
         });

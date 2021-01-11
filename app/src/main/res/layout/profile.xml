@@ -8,6 +8,7 @@
     tools:context=".Profile.Profiles.profile"
     tools:openDrawer="start">
 
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -16,7 +17,6 @@
         app:headerLayout="@layout/header_"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/sidemenu" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -121,21 +121,6 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="0.25"
                 android:background="@drawable/home"
-                android:backgroundTint="#636363"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_container">
-
-            </Button>
-
-            <Button
-                android:id="@+id/message_profile"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/message"
                 android:backgroundTint="#636363"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

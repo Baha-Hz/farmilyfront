@@ -30,6 +30,7 @@ public class signUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+        goLoginButton = findViewById(R.id.loginText);
 
         signUpButton = findViewById(R.id.gotoProfile);
 
@@ -37,6 +38,15 @@ public class signUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signIn();
+            }
+        });
+
+        goLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(signUp.this, login.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

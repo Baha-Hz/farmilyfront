@@ -18,30 +18,79 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".fields.MyFields"></activity>
-        <activity android:name=".fields.ActivityCricketers" />
-        <activity android:name=".fields.AddFields" />
-        <activity android:name=".Profile.HireRequest.HIre_req" />
-        <activity android:name=".Profile.Profiles.Header" />
-        <activity android:name=".Profile.MyEngineerDisplay.Myengineer" />
-        <activity android:name=".Profile.MyEngineerDisplay.Detail" />
-        <activity android:name=".Profile.hireEngineer.Hire" />
-        <activity android:name=".feed.com_display" />
-        <activity android:name=".feed.AddPost" />
-        <activity android:name=".Profile.Profiles.profile" />
-        <activity android:name=".Profile.Profiles.profileeng" />
-        <activity android:name=".Profile.EditProfile" />
-        <activity android:name=".Profile.showfileds" />
-        <activity android:name=".notification.notification" />
-        <activity android:name=".messages.messages" />
-        <activity android:name=".Profile.profile2" />
-        <activity android:name=".feed.feed" />
-        <activity android:name=".LoginrRegister.signUp" />
-        <activity android:name=".onbording.getStarted" />
-        <activity android:name=".LoginrRegister.login" />
-        <activity android:name=".onbording.onboarding_three" />
-        <activity android:name=".onbording.onboarding_two" />
-        <activity android:name=".onbording.onboarding_one">
+        <activity android:name=".Splash"></activity>
+        <activity
+            android:name=".fields.MyFields"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fields.ActivityCricketers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fields.AddFields"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.HireRequest.HIre_req"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.Profiles.Header"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.MyEngineerDisplay.Myengineer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.MyEngineerDisplay.Detail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.hireEngineer.Hire"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feed.com_display"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feed.AddPost"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.Profiles.profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.Profiles.profileeng"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.EditProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.showfileds"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notification.notification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".messages.messages"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.profile2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feed.feed"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginrRegister.signUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".onbording.getStarted"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginrRegister.login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".onbording.onboarding_three"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".onbording.onboarding_two"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".onbording.onboarding_one"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

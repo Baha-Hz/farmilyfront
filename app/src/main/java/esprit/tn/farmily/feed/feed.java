@@ -108,18 +108,7 @@ public class feed extends AppCompatActivity {
             }
         });
 
-        Button message = (Button) findViewById(R.id.message_feed);
-        message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent message = new Intent(getApplicationContext(), messages.class);
-                startActivity(message);
-                overridePendingTransition(0,0);
-                message.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
 
-            }
-        });
         Button notif = (Button) findViewById(R.id.notif_feed);
         notif.setOnClickListener(new View.OnClickListener() {
 
