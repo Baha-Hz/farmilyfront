@@ -1,4 +1,4 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.Profiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 

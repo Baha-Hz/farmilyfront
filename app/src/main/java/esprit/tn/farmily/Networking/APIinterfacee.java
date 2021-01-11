@@ -1,13 +1,17 @@
 package esprit.tn.farmily.Networking;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.models.Comment;
 import esprit.tn.farmily.models.Downvote;
 import esprit.tn.farmily.models.Engineer;
+import esprit.tn.farmily.models.Filedsmodel;
 import esprit.tn.farmily.models.Hire;
 import esprit.tn.farmily.models.Notification;
+import esprit.tn.farmily.models.Location;
 import esprit.tn.farmily.models.Post;
 import esprit.tn.farmily.models.Upvote;
 import okhttp3.MultipartBody;
@@ -38,6 +42,22 @@ public interface APIinterfacee {
 
     @POST("api/post/addcomment")
     Call<Comment> addcomment (@Body Comment comment);
+
+    @POST("api/field/addfield")
+    Call<Filedsmodel> addFiled (@Body Filedsmodel filedsmodel);
+
+
+
+    @POST("api/field/generateaddress/{Addresstxt}")
+    Call<Location> loacate (@Path("Addresstxt") String Addresstxt);
+
+
+    @POST("api/field/deletefield/{id}")
+    Call<Filedsmodel> delete (@Path("id") String id);
+
+    @GET("api/field/showuserfields/{creator}")
+    Call<ArrayList<Filedsmodel>> getuserFields (@Path("creator") String creator);
+
 
     @GET("api/post/allpostcomments/{postid}")
     Call<List<Comment>> getallPostcomment(@Path("postid") String postid);

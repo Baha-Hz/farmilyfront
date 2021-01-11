@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +25,8 @@ import java.io.IOException;
 import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.Networking.APIclient;
+import esprit.tn.farmily.Profile.Profiles.profile;
+import esprit.tn.farmily.Profile.Profiles.profileeng;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.utilities.CurrentSession;
 import esprit.tn.farmily.utilities.RealPathUtils;
@@ -75,14 +74,14 @@ public class EditProfile extends AppCompatActivity {
 
                 switch (role) {
                     case "Farmer":
-                        Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
+                        Intent proint = new Intent(getApplicationContext(), profile.class);
                         startActivity(proint);
                         overridePendingTransition(0, 0);
                         proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         finish();
                         break;
                     case "Engineer":
-                        Intent to = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profileeng.class);
+                        Intent to = new Intent(getApplicationContext(), profileeng.class);
                         startActivity(to);
                         overridePendingTransition(0, 0);
                         to.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

@@ -1,11 +1,14 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.MyEngineerDisplay;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,26 +21,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HIre_req extends AppCompatActivity {
-    TextView current;
+public class Myengineer extends AppCompatActivity {
+    TextView usename,current;
+    Button backbutton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h_ire_req);
+        setContentView(R.layout.myengineer);
 
 
-
+        usename = findViewById(R.id.EMP);
         current = findViewById(R.id.employer23);
-
+        backbutton = findViewById(R.id.backbutton);
         current.setText(CurrentSession.CurrentUser.getUsername());
-        String employee = current.getText().toString();
+        String employer = current.getText().toString();
 
-
-        RecyclerView recyclerView =findViewById(R.id.recyclerView12);
+        RecyclerView recyclerView =findViewById(R.id.recyclerView9);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.Profiles.profile.class);
+                startActivity(proint);
+                overridePendingTransition(0, 0);
+                proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            }
+        });
 
-        Call<List<Hire>> showEng = APIclient.apIinterface().EngPending(employee);
+        Call<List<Hire>> showEng = APIclient.apIinterface().Pending (employer);
         showEng.enqueue(new Callback<List<Hire>>() {
             @Override
             public void onResponse(Call<List<Hire>> call, Response<List<Hire>> response) {
@@ -45,13 +57,12 @@ public class HIre_req extends AppCompatActivity {
                     return;
                 }
 
-                reqaddpterAdapter myAdapter = new reqaddpterAdapter(getApplicationContext(), response.body());
+                pendingAdapter myAdapter = new pendingAdapter(getApplicationContext(), response.body());
                 recyclerView.setAdapter(myAdapter);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                 layoutManager.setStackFromEnd(true);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.scrollToPosition(0);
-                myAdapter.notifyDataSetChanged();
 
 
 

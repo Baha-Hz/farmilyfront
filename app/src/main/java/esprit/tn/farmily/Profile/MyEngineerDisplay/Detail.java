@@ -1,4 +1,4 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.MyEngineerDisplay;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,10 +23,9 @@ import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.LoginrRegister.login;
 import esprit.tn.farmily.LoginrRegister.signUp;
 import esprit.tn.farmily.Networking.APIclient;
+import esprit.tn.farmily.Profile.EditProfile;
+import esprit.tn.farmily.Profile.Profiles.profile;
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.feed.CommentAdapter;
-import esprit.tn.farmily.feed.feed;
-import esprit.tn.farmily.models.Comment;
 import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
 import esprit.tn.farmily.models.Notification;
@@ -37,7 +36,7 @@ import retrofit2.Response;
 
 public class Detail extends AppCompatActivity {
     TextView usename,phone,fullname,email,current;
-    Button hire,cv;
+    Button hire,cv,goback;
     CircleImageView imageView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +48,7 @@ public class Detail extends AppCompatActivity {
         current =findViewById(R.id.current);
         email = findViewById(R.id.emailEng);
         imageView2 = findViewById(R.id.imageView2);
+        goback = findViewById(R.id.goback);
         Intent intent = getIntent();
         String UserName = intent.getStringExtra("UserName");
         usename.setText(UserName);
@@ -61,6 +61,13 @@ public class Detail extends AppCompatActivity {
 
             }
         }));
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Detail.this, profile.class);
+                startActivity(intent);
+            }
+        });
 
 
 

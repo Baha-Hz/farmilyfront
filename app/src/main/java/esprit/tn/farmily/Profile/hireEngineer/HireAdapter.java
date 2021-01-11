@@ -1,4 +1,4 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.hireEngineer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +18,11 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.Networking.APIclient;
+import esprit.tn.farmily.Profile.MyEngineerDisplay.Detail;
+
+
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.feed.CommentAdapter;
-import esprit.tn.farmily.feed.MyPostAdapter;
-import esprit.tn.farmily.feed.com_display;
 import esprit.tn.farmily.models.Engineer;
-import esprit.tn.farmily.models.Post;
-import esprit.tn.farmily.models.User;
 
 
 

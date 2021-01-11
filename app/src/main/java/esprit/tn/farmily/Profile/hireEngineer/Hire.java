@@ -1,12 +1,9 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.hireEngineer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,9 +11,7 @@ import java.util.List;
 
 import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.feed.com_display;
 import esprit.tn.farmily.models.Engineer;
-import esprit.tn.farmily.models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

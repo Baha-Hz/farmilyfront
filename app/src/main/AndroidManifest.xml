@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,15 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.HIre_req"></activity>
-        <activity android:name=".Profile.Header" />
-        <activity android:name=".Profile.Myengineer" />
-        <activity android:name=".Profile.Detail" />
-        <activity android:name=".Profile.Hire" />
+        <activity android:name=".fields.MyFields"></activity>
+        <activity android:name=".fields.ActivityCricketers" />
+        <activity android:name=".fields.AddFields" />
+        <activity android:name=".Profile.HireRequest.HIre_req" />
+        <activity android:name=".Profile.Profiles.Header" />
+        <activity android:name=".Profile.MyEngineerDisplay.Myengineer" />
+        <activity android:name=".Profile.MyEngineerDisplay.Detail" />
+        <activity android:name=".Profile.hireEngineer.Hire" />
         <activity android:name=".feed.com_display" />
         <activity android:name=".feed.AddPost" />
-        <activity android:name=".Profile.profile" />
-        <activity android:name=".Profile.profileeng" />
+        <activity android:name=".Profile.Profiles.profile" />
+        <activity android:name=".Profile.Profiles.profileeng" />
         <activity android:name=".Profile.EditProfile" />
         <activity android:name=".Profile.showfileds" />
         <activity android:name=".notification.notification" />

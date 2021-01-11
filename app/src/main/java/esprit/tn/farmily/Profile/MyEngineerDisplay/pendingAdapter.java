@@ -1,7 +1,6 @@
-package esprit.tn.farmily.Profile;
+package esprit.tn.farmily.Profile.MyEngineerDisplay;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import esprit.tn.farmily.R;
-import esprit.tn.farmily.feed.MyPostAdapter;
-import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
 
 public class pendingAdapter extends RecyclerView.Adapter<pendingAdapter.ViewHolder> {

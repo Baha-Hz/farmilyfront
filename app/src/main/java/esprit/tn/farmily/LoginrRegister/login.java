@@ -97,12 +97,8 @@ public class login extends AppCompatActivity {
                 } else {
                     Log.d("loginNetF", "unsucc request");
                     loginError.setVisibility(View.VISIBLE);
-                    try {
-                        loginError.setText(response.errorBody().string());
-                        Log.d("loginNetFF" ,"failed to string errorBody()");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    loginError.setText("Wrong Data ! Try again");
+                    Log.d("loginNetFF" ,"failed to string errorBody()");
 
                 }
             }
@@ -114,8 +110,3 @@ public class login extends AppCompatActivity {
         });
     }
 }
-
-
-
-
-

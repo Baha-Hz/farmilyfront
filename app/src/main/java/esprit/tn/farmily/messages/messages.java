@@ -9,8 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import esprit.tn.farmily.Profile.profile;
-import esprit.tn.farmily.Profile.profile2;
+import esprit.tn.farmily.Profile.Profiles.profileeng;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.notification.notification;
@@ -52,14 +51,14 @@ public class messages extends AppCompatActivity {
             public void onClick(View v) {
                 switch (CurrentSession.CurrentUser.getRole()) {
                     case "Farmer":
-                        Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
+                        Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.Profiles.profile.class);
                         startActivity(proint);
                         overridePendingTransition(0, 0);
                         proint.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         finish();
                         break;
                     case "Engineer":
-                        Intent to = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profileeng.class);
+                        Intent to = new Intent(getApplicationContext(), profileeng.class);
                         startActivity(to);
                         overridePendingTransition(0, 0);
                         to.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
