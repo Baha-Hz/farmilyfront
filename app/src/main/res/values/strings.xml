@@ -19,7 +19,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="mapbox_access_token">sk.eyJ1IjoiYmFoYTIzIiwiYSI6ImNranAxbGM1MTJyb3IyenFvdDhzMXAzdzYifQ.auyPtegiO8INelPC2KZFeQ</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYmFoYTIzIiwiYSI6ImNrZmg1dnl5aTB2YnoyeW91MzVucngxZG4ifQ.ZTGPmjh_u0LEMkAPqOnDWg</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>

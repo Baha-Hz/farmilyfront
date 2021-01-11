@@ -6,7 +6,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class APIclient {
 
-    public static String base_url = "http://192.168.1.4:3000/";
+    public static String base_url = "http://172.16.165.36:3000/";
 
     public static Retrofit getClient() {
         Retrofit retrofit = new Retrofit.Builder()
