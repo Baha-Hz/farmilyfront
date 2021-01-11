@@ -12,8 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.CommentAdapter;
 import esprit.tn.farmily.feed.MyPostAdapter;
@@ -21,6 +25,8 @@ import esprit.tn.farmily.feed.com_display;
 import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Post;
 import esprit.tn.farmily.models.User;
+
+
 
 public class HireAdapter extends RecyclerView.Adapter<HireAdapter.ViewHolder> {
 
@@ -45,6 +51,8 @@ public class HireAdapter extends RecyclerView.Adapter<HireAdapter.ViewHolder> {
 
         holder.textViewname.setText(engdata.get(position).getUsername());
         String User = engdata.get(position).getUsername();
+
+        Glide.with(context).load(APIclient.base_url+ engdata.get(position).getProfileimage()).into(holder.profileng);
         holder.Addeng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +74,7 @@ public class HireAdapter extends RecyclerView.Adapter<HireAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profilepic;
+        CircleImageView profileng;
         TextView textViewname;
         TextView  textViewrole;
         Button Addeng ;
@@ -74,7 +82,7 @@ public class HireAdapter extends RecyclerView.Adapter<HireAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            profilepic = itemView.findViewById(R.id.profileng);
+            profileng = itemView.findViewById(R.id.profileng);
             textViewname = itemView.findViewById(R.id.nameng);
             textViewrole= itemView.findViewById(R.id.roleeng);
             Addeng= itemView.findViewById((R.id.Addeng));

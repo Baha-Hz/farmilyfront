@@ -1,32 +1,63 @@
 package esprit.tn.farmily.notification;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
+import esprit.tn.farmily.Networking.APIclient;
+import esprit.tn.farmily.Profile.NotficationAdapter;
 import esprit.tn.farmily.Profile.profile;
 import esprit.tn.farmily.Profile.profile2;
 import esprit.tn.farmily.R;
+import esprit.tn.farmily.feed.MyPostAdapter;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.messages.messages;
+import esprit.tn.farmily.models.Notification;
 import esprit.tn.farmily.utilities.CurrentSession;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import esprit.tn.farmily.models.Notification;
 
 public class notification extends AppCompatActivity {
     String role ;
+    RecyclerView rvc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification);
-        role= CurrentSession.CurrentUser.getRole().toString();
+        //CurrentSession.CurrentUser.getRole().toString();
+        rvc=findViewById(R.id.NotifRV);
+        Call<List<Notification>> mynotifications = APIclient.apIinterface().mynotifications(CurrentSession.CurrentUser.getUsername());
+        mynotifications.enqueue(new Callback<List<Notification>>() {
+            @Override
+            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
+                NotficationAdapter myAdapter = new NotficationAdapter(getApplicationContext(), response.body());
+                rvc.setAdapter(myAdapter);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                layoutManager.setStackFromEnd(true);
+                rvc.setLayoutManager(layoutManager);
+                rvc.scrollToPosition(0);
+            }
+
+            @Override
+            public void onFailure(Call<List<Notification>> call, Throwable t) {
+
+            }
+        });
 
         Button profile = (Button) findViewById(R.id.profil_notif);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (role) {
+                switch (CurrentSession.CurrentUser.getRole()) {
                     case "Farmer":
                         Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
                         startActivity(proint);

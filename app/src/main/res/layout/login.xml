@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_password"
                 android:fontFamily="@font/poppinsmedium"
+                android:password="true"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
 

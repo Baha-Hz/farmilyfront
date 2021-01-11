@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class signUp extends AppCompatActivity {
 
-    EditText full_name,username,password,email,role;
+    EditText full_name,username,password,email,role,phone;
     Button signUpButton;
     TextView goLoginButton;
     TextView errorText;
@@ -52,6 +52,7 @@ public class signUp extends AppCompatActivity {
         signUpButton = findViewById(R.id.gotoProfile);
         goLoginButton = findViewById(R.id.loginText);
         errorText = findViewById(R.id.errorText);
+        phone = findViewById(R.id.editphone);
 
         User user = new User();
         user.setFullname(full_name.getText().toString());
@@ -59,7 +60,7 @@ public class signUp extends AppCompatActivity {
         user.setEmail(email.getText().toString());
         user.setPassword(password.getText().toString());
         user.setRole(role.getText().toString());
-
+        user.setPhone(phone.getText().toString());
         // doing the call
         Call<User> register = APIclient.apIinterface().registerUser(user);
         register.enqueue(new Callback<User>() {

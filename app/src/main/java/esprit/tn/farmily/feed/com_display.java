@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import java.util.List;
 import esprit.tn.farmily.Networking.APIclient;
 import esprit.tn.farmily.R;
 import esprit.tn.farmily.models.Comment;
+import esprit.tn.farmily.models.Notification;
 import esprit.tn.farmily.models.Post;
 import esprit.tn.farmily.utilities.CurrentSession;
 import retrofit2.Call;
@@ -29,8 +31,8 @@ public class com_display extends AppCompatActivity {
 
     EditText comm ;
     Button send ;
-    TextView user ,PostId,errorText ;
-
+    TextView user ,PostId,errorText,postowner ;
+    Notification notification = new Notification();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +41,24 @@ public class com_display extends AppCompatActivity {
         comm = findViewById(R.id.comm);
         user = findViewById(R.id.textView6);
         send = findViewById(R.id.send);
+        postowner = findViewById(R.id.postowner);
+
         user.setText(CurrentSession.CurrentUser.getUsername());
 
         Intent intent = getIntent();
         String postid = intent.getStringExtra("Postid");
+        postowner.setText(intent.getStringExtra("User"));
         PostId = findViewById(R.id.textView7);
         PostId.setText(postid);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { addComment(); }
+            public void onClick(View v) {
+                addComment();
+
+
+
+            }
 
 
         });
@@ -107,6 +117,7 @@ public class com_display extends AppCompatActivity {
         user = findViewById(R.id.textView6);
         PostId = findViewById(R.id.textView7);
         errorText = findViewById(R.id.textView8);
+        postowner = findViewById(R.id.postowner);
 
         Comment comment =new Comment();
         comment.setUsercomment(user.getText().toString());
@@ -118,10 +129,14 @@ public class com_display extends AppCompatActivity {
             @Override
             public void onResponse(Call<Comment> call, Response<Comment> response) {
                 if (response.isSuccessful()) {
+
+
                     Log.d("RegisterNet", String.valueOf(response.code()));
                     Toast.makeText(com_display.this, "New post Added", Toast.LENGTH_LONG).show();
                     Intent addnew = new Intent(com_display.this, feed.class);
                     startActivity(addnew);
+
+
                 } else {
                     Log.d("RegisterNet", "unsucc response");
                     errorText.setVisibility(View.VISIBLE);
@@ -141,6 +156,30 @@ public class com_display extends AppCompatActivity {
 
 
         });
+
+        notification.setProfileimage(CurrentSession.CurrentUser.getProfileimage());
+        notification.setSender(CurrentSession.CurrentUser.getUsername());
+        notification.setReceiver(postowner.getText().toString());
+        notification.setAction(CurrentSession.CurrentUser.getUsername()+" commented on your Post");
+
+        Call<Notification> addnotification = APIclient.apIinterface().addnotification(notification);
+        addnotification.enqueue(new Callback <Notification>() {
+            @Override
+            public void onResponse(Call<Notification> call, Response<Notification> response) {
+
+                Log.d("ezzab", String.valueOf(response));
+            }
+
+            @Override
+            public void onFailure(Call<Notification> call, Throwable t) {
+                Log.d("ezzab", "chfama");
+            }
+
+
+            //Log.d("dfdfdfdf",posts.toString());
+        });
+
+
 
     }
 

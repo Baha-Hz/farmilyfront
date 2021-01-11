@@ -22,6 +22,8 @@ import esprit.tn.farmily.R;
 import esprit.tn.farmily.feed.com_display;
 import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.models.Hire;
+import esprit.tn.farmily.models.Notification;
+import esprit.tn.farmily.utilities.CurrentSession;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +56,7 @@ public class reqaddpterAdapter extends RecyclerView.Adapter<reqaddpterAdapter.Vi
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Hire> showEng = APIclient.apIinterface().acceptJob (ID);
+                Call<Hire> showEng = APIclient.apIinterface().acceptJob(ID);
                 showEng.enqueue(new Callback<Hire>() {
                     @Override
                     public void onResponse(Call<Hire> call, Response<Hire> response) {
@@ -75,7 +77,27 @@ public class reqaddpterAdapter extends RecyclerView.Adapter<reqaddpterAdapter.Vi
 
                     }
                 });
+                Notification notification= new Notification();
+                notification.setProfileimage(CurrentSession.CurrentUser.getProfileimage());
+                notification.setSender(CurrentSession.CurrentUser.getUsername());
+                notification.setReceiver(REQ.get(position).getEmployer());
+                notification.setAction(CurrentSession.CurrentUser.getUsername()+"Accepted your offer");
+                Call<Notification> addnotification = APIclient.apIinterface().addnotification(notification);
+                addnotification.enqueue(new Callback <Notification>() {
+                    @Override
+                    public void onResponse(Call<Notification> call, Response<Notification> response) {
 
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Notification> call, Throwable t) {
+
+                    }
+
+
+                    //Log.d("dfdfdfdf",posts.toString());
+                });
                 Intent intent = new Intent(holder.itemView.getContext(), HIre_req.class);
                 holder.itemView.getContext().startActivity(intent);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

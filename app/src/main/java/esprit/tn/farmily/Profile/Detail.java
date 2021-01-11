@@ -9,12 +9,16 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.LoginrRegister.login;
 import esprit.tn.farmily.LoginrRegister.signUp;
@@ -25,6 +29,7 @@ import esprit.tn.farmily.feed.feed;
 import esprit.tn.farmily.models.Comment;
 import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
+import esprit.tn.farmily.models.Notification;
 import esprit.tn.farmily.utilities.CurrentSession;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +38,7 @@ import retrofit2.Response;
 public class Detail extends AppCompatActivity {
     TextView usename,phone,fullname,email,current;
     Button hire,cv;
+    CircleImageView imageView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,7 @@ public class Detail extends AppCompatActivity {
         fullname = findViewById(R.id.fullnameEng);
         current =findViewById(R.id.current);
         email = findViewById(R.id.emailEng);
+        imageView2 = findViewById(R.id.imageView2);
         Intent intent = getIntent();
         String UserName = intent.getStringExtra("UserName");
         usename.setText(UserName);
@@ -51,6 +58,7 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 hirenew();
+
             }
         }));
 
@@ -66,6 +74,7 @@ public class Detail extends AppCompatActivity {
                 phone.setText(response.body().getPhone().toString());
                 email.setText(response.body().getEmail().toString());
                 fullname.setText(response.body().getFullname().toString());
+                Glide.with(getApplicationContext()).load(APIclient.base_url+ response.body().getProfileimage()).into(imageView2);
             }
 
             @Override
@@ -95,7 +104,26 @@ public class Detail extends AppCompatActivity {
                 if(response.isSuccessful()) {
 
                     Toast.makeText(Detail.this, "Hire Request is Sent ", Toast.LENGTH_LONG).show();
+                    Notification notification= new Notification();
+                    notification.setProfileimage(CurrentSession.CurrentUser.getProfileimage());
+                    notification.setSender(CurrentSession.CurrentUser.getUsername());
+                    notification.setReceiver(employee);
+                    notification.setAction(CurrentSession.CurrentUser.getUsername()+" wants to hire you");
+                    Call<Notification> addnotification = APIclient.apIinterface().addnotification(notification);
+                    addnotification.enqueue(new Callback <Notification>() {
+                        @Override
+                        public void onResponse(Call<Notification> call, Response<Notification> response) {
 
+                        }
+
+                        @Override
+                        public void onFailure(Call<Notification> call, Throwable t) {
+
+                        }
+
+
+                        //Log.d("dfdfdfdf",posts.toString());
+                    });
 
                 } else {
 
@@ -109,6 +137,8 @@ public class Detail extends AppCompatActivity {
                 Log.d("loginNet1" , t.toString());
             }
         });
+
+
 
     }
 }

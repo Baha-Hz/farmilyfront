@@ -146,6 +146,7 @@ public class EditProfile extends AppCompatActivity {
                     user.setFullname(full_name.getText().toString());
                     user.setEmail(email.getText().toString());
                     user.setPassword(password.getText().toString());
+                    user.setRole(role);
                     try{
                         user.setPhone((Integer.parseInt(phone.getText().toString())));
                     } catch(NumberFormatException ex){ // handle your exception
@@ -223,7 +224,7 @@ public class EditProfile extends AppCompatActivity {
             CircleImageView img = findViewById(R.id.profileimage);
             img.setImageURI(uri);
 
-        }
+        }else {return;}
 
     }
 

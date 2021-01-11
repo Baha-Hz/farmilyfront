@@ -45,12 +45,12 @@ public class messages extends AppCompatActivity {
 
 
 
-        role= CurrentSession.CurrentUser.getRole().toString();
+        //role= CurrentSession.CurrentUser.getRole().toString();
         Button profile = (Button) findViewById(R.id.profil_message);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (role) {
+                switch (CurrentSession.CurrentUser.getRole()) {
                     case "Farmer":
                         Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
                         startActivity(proint);

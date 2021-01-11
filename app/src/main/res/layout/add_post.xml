@@ -119,7 +119,7 @@
             android:button="@color/Transparant"
 
             android:padding="10dp"
-            android:text="Fileds "
+            android:text="Fields "
             android:textColor="@drawable/text_color" />
 
         <RadioButton

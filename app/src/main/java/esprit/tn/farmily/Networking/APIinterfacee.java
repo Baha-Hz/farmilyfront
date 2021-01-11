@@ -4,9 +4,12 @@ import java.util.List;
 
 import esprit.tn.farmily.LoginrRegister.User;
 import esprit.tn.farmily.models.Comment;
+import esprit.tn.farmily.models.Downvote;
 import esprit.tn.farmily.models.Engineer;
 import esprit.tn.farmily.models.Hire;
+import esprit.tn.farmily.models.Notification;
 import esprit.tn.farmily.models.Post;
+import esprit.tn.farmily.models.Upvote;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -60,6 +63,28 @@ public interface APIinterfacee {
     @Multipart
     @POST("api/profile/uploadpic")
     Call<String> uploadpic(@Part MultipartBody.Part file);
+
+    @GET("api/post/countcomments/{postid}")
+    Call<String> getnumberofposts(@Path("postid") String postid);
+
+    @GET("api/post/allupvotes/{postid}")
+    Call<String> getnumberofupvotes(@Path("postid") String postid);
+
+    @GET("api/post/alldownvotes/{postid}")
+    Call<String> getnumberofdownvotes(@Path("postid") String postid);
+
+    @POST("api/post/addupvote/{postid}/{userupvote}")
+    Call<Upvote> addupvote (@Path("postid") String postid, @Path("userupvote") String userupvote);
+
+    @POST("api/post/adddownvote/{postid}/{userdownvote}")
+    Call<Downvote> adddownvote (@Path("postid") String postid,@Path("userdownvote") String userdownvote);
+
+    @POST("api/notification/addnotification")
+    Call<Notification> addnotification (@Body Notification notification);
+
+    @GET("api/notification//getallnotifications/{username}")
+    Call<List<Notification>> mynotifications(@Path("username")String username);
+
 
 
 }

@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_fileds"
             android:icon="@drawable/ic_field"
-            android:title="My Fileds" />
+            android:title="My Fields" />
 
         <item
             android:id="@+id/nav_hire_request"

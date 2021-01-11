@@ -30,6 +30,7 @@ public class feed extends AppCompatActivity {
     TextView question,userpost,topic;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +81,14 @@ public class feed extends AppCompatActivity {
         });
 // bottembar navigation
 
-        role=CurrentSession.CurrentUser.getRole().toString();
+
+     //   role=CurrentSession.CurrentUser.getRole().toString();
 
         Button profile = (Button) findViewById(R.id.profil_feed);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (role) {
+                switch (CurrentSession.CurrentUser.getRole()) {
                     case "Farmer":
                         Intent proint = new Intent(getApplicationContext(), esprit.tn.farmily.Profile.profile.class);
                         startActivity(proint);

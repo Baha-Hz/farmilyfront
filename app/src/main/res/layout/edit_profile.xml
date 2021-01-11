@@ -107,26 +107,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Password" />
-
-           <EditText
-               android:id="@+id/passwordinput"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"></EditText>
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout15"
@@ -148,6 +129,27 @@
                 android:layout_height="wrap_content">
 
             </EditText>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password" />
+
+            <EditText
+                android:id="@+id/passwordinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:password="true"></EditText>
 
         </LinearLayout>
 
